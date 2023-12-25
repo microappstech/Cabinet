@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Cabinet.Models;
 namespace Cabinet.Models
 {
@@ -9,6 +10,7 @@ namespace Cabinet.Models
         public DateTime? DateCreated {get; set;}
         public bool Annuled {get; set;}
         public bool Passed {get; set;}
+        public int PatientId { get; set; }
         public Patient Patient {get; set;}
     }
 }
