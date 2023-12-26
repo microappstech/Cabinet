@@ -1,6 +1,7 @@
 ﻿using Cabinet.Data;
 using Cabinet.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -44,7 +45,18 @@ namespace Cabinet.Service
                 return user;
             }
         }
+        public async Task<bool> InitializeAsync(AuthenticationStateProvider authenticationStateProvider)
+        {
+            var auth = await authenticationStateProvider.GetAuthenticationStateAsync();
+            var Principal = auth.User;
+            var name = Principal.Identity.Name;
+            if(user == null &&  name != null)
+            {
 
+            }
+            return false;
+
+        }
 
     }
 }
