@@ -14,11 +14,27 @@ using Microsoft.JSInterop;
 using Cabinet;
 using Cabinet.Shared;
 using Radzen.Blazor;
+using Cabinet.Service;
 
 namespace Cabinet.Pages.Doctors
 {
-    public partial class Doctor
+    public partial class Doctor 
     {
         public IEnumerable<Doctor> Doctors { get; set; }
+        protected override async Task OnInitializedAsync()
+        {
+            if(true)
+            {
+
+            }
+            else
+            {
+                await Load();
+            }
+        }
+        public async Task Load()
+        {
+
+        }
     }
 }

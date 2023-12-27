@@ -19,7 +19,7 @@
                 </RadzenHeading>
             </div>
         </div>
-        <RadzenTemplateForm Action="@($"account/login?redirectUrl={redirectUrl}")" Data="@("login")" Method="post">
+        <RadzenTemplateForm Action="@($"Auth/login?redirectUrl={redirectUrl}")" Data="@("login")" Method="post">
             <ChildContent>
                 <div class="form-group">
                     <RadzenLabel Text="Username" for="Username" class="mb-2" />

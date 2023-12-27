@@ -1,0 +1,89 @@
+﻿@page "/add-application-user"
+@layout MainLayout
+@inherits AddUserComponent
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Authorization
+@using Cabinet.Models
+
+@attribute [Authorize(Roles = "admin, doctor")]
+@inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+<PageTitle>Add Application User</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenTemplateForm TItem="User" Data="@user" Visible="@(user != null)" Submit="@Form0Submit">
+                    <ChildContent>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Component="nomusuel" style="width: 100%" Text="@L["Nom"]">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(user.FullName)" Name="nomusueltxt">
+                                </RadzenTextBox>
+                                <RadzenRequiredValidator Component="nomusueltxt" style="position: absolute" Text="@L["le nom est oblgatoire"]">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Component="RoleNames" style="width: 100%" Text="@L["label2.Text"]">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenDropDown Data="@roles" Multiple="true" style="width: 100%" @bind-Value="@(user.RoleNames)" TextProperty="Name" ValueProperty="Name" Name="RoleNames">
+                                </RadzenDropDown>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Component="Password" style="width: 100%" Text="@L["label3.Text"]">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenPassword style="display: block; width: 100%" @bind-Value="@(user.Password)" Name="Password">
+                                </RadzenPassword>
+                                <RadzenRequiredValidator Component="Password" style="position: absolute" Text="@L["PasswordRequiredValidator.Text"]">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Component="ConfirmPassword" style="width: 100%" Text="@L["label4.Text"]">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenPassword style="display: block; width: 100%" @bind-Value="@(user.ConfirmPassword)" Name="ConfirmPassword">
+                                </RadzenPassword>
+                                <RadzenRequiredValidator Component="ConfirmPassword" style="position: absolute" Text="@L["ConfirmPasswordRequiredValidator.Text"]">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Component="Photo" style="width: 100%" Text="@L["Photo"]">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenFileInput style="display: block; width: 100%" @bind-Value="@(user.Photo)" Name="Photo" ChooseText="Choisir une photo">
+                                </RadzenFileInput>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col offset-sm-3">
+                                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="@L["button1.Text"]">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="@L["button2.Text"]" Click="@Button2Click">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </ChildContent>
+                </RadzenTemplateForm>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
+²
