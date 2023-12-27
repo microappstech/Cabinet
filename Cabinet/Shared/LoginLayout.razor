@@ -1,0 +1,33 @@
+@inherits LayoutComponentBase 
+@using Microsoft.AspNetCore.Identity
+@using Radzen
+@using Radzen.Blazor
+
+
+<RadzenBody class="m-0 p-0" @ref="body0" Expanded="true">
+    <ChildContent>
+        <div class="row justify-content-center align-content-center m-0" style="height: 100vh">
+            <div class="col-xl-4 col-l-5 col-md-6">
+                <RadzenCard>
+                    <ChildContent>
+                        <RadzenContentContainer Name="main">
+                            @Body
+                        </RadzenContentContainer>
+                    </ChildContent>
+                </RadzenCard>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenBody>
+
+@code{
+    protected RadzenBody body0;
+    private void Authenticated()
+    {
+        
+    }
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+    }
+}

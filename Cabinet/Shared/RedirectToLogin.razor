@@ -1,0 +1,23 @@
+inject NavigationManager Navigation
+@code {
+    [Parameter] public bool IsAuthenticated { get; set; }
+    protected override void OnInitialized()
+    {
+        if (!IsAuthenticated)
+        {
+            var RediricetUrl = Navigation.ToBaseRelativePath(Navigation.Uri);
+            if (!string.IsNullOrEmpty(RediricetUrl))
+            {
+                Navigation.NavigateTo($"Login?redircetUrl={Uri.EscapeUriString(RediricetUrl)}", true);
+            }
+            else
+            {
+                Navigation.NavigateTo("login");
+            }
+        }
+        else
+        {
+            Navigation.NavigateTo("UnAuthorized");
+        }
+    }
+}
