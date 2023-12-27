@@ -1,5 +1,7 @@
 ﻿@page "/login"
+@layout Cabinet.Shared.LoginLayout
 @using Radzen;
+
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L;
 
 <PageTitle>Login</PageTitle>
@@ -43,7 +45,6 @@
                     </div>
                 </div>
                 <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary" Style="width: 100%" class="mt-3">
-                    @L["Connexion.Text"]
                 </RadzenButton>
                 @*/<RadzenLogin AllowResetPassword="false" AllowRegister="false" Register="@Login0Register" LoginText="Valider"  PasswordText="Mot de passe" UserText="Identifiant">
                 </RadzenLogin>/*@

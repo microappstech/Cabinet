@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Cabinet.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Cabinet.Models
 {
     public class Appointment
