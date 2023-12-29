@@ -18,14 +18,16 @@ using Cabinet.Service;
 
 namespace Cabinet.Pages.Doctors
 {
-    public partial class Doctor 
+    public partial class DoctorComponent  : BasePage
     {
-        public IEnumerable<Doctor> Doctors { get; set; }
+        public IEnumerable<Cabinet.Models.Doctor> Doctors { get; set; }
+        [Inject] protected DoctorService doctorService { get; set; }    
         protected override async Task OnInitializedAsync()
         {
-            if(true)
+            await Security.InitializeAsync(AuthenticationStateProvider);
+            if(!Security.IsAuthenticated())
             {
-
+                Navigation.NavigateTo("login",true);
             }
             else
             {
@@ -33,6 +35,19 @@ namespace Cabinet.Pages.Doctors
             }
         }
         public async Task Load()
+        {
+            Doctors = await doctorService.GetDoctors();
+
+        }
+        public async Task Ajouter()
+        {
+            var result = await DialogService.OpenAsync<AddDoctor>("Add Doctor", new Dictionary<string, object> { });
+        }
+        public async Task Edit(Models.Doctor doctor)
+        {
+            var result = await DialogService.OpenAsync<EditDoctor>("Edit Doctor", new Dictionary<string, object> { { "Id", doctor.Id } });
+        }
+        public async Task Delete(EventArgs eventArgs, Models.Doctor doctor)
         {
 
         }

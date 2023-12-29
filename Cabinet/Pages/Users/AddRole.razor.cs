@@ -48,7 +48,7 @@ namespace Cabinet.Pages.Users
                 var securityCreateRoleResult = await Security.CreateRole(args);
                 Navigation.NavigateTo("application-roles");
             }
-            catch (System.Exception securityCreateRoleException)
+            catch (System.Exception ex)
             {
                 //notificationService.Notify(new NotificationMessage() { Severity = NotificationSeverity.Error, Summary = $"Cannot create role", Detail = $"{securityCreateRoleException.Message}" });
             }

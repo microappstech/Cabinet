@@ -51,6 +51,10 @@ builder.Services.AddScoped<DoctorService>();
 builder.Services.AddLocalization();
 
 
+builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<TooltipService>();
+builder.Services.AddScoped<ContextMenuService>();
 
 
 

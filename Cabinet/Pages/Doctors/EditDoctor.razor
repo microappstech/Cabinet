@@ -1,5 +1,5 @@
-﻿@page "/Adddoctor"
-@inherits AddDoctorComponent
+﻿@page "/Editdoctor"
+@inherits EditDoctorComponent
 @using Radzen
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
 
@@ -9,18 +9,6 @@
             <div class="col-md-12">
                 <RadzenTemplateForm Data="@doctor" Visible="@(doctor != null)" TItem="Models.Doctor" Submit="@Submit">
                     <ChildContent>
-                        <div style="margin-bottom : 1rem" class="row">
-                            <div class="col-md-3">
-                                <RadzenLabel Text="@L["Photo"]">
-
-                                </RadzenLabel>
-                            </div>
-                            <div class="col-md-9">
-                                <RadzenFileInput @bind-Value=@firstEmployee.Photo @bind-FileName=@fileName @bind-FileSize=@fileSize TValue="string" class="w-100" 
-                                    Change=@(args => OnChange(args, "FileInput")) Error=@(args => OnError(args, "FileInput")) InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"/>
-                                </RadzenCard>
-                            </div>
-                        </div>
                         <div style="margin-bottom: 1rem" class="row">
                             <div class="col-md-3">
                                 <RadzenLabel Text="@L["Nom"]" Component="nom" style="width: 100%">

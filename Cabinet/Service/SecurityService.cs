@@ -2,6 +2,7 @@
 using Cabinet.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection.Metadata.Ecma335;
@@ -149,6 +150,11 @@ namespace Cabinet.Service
 
 
             return role;
+        }
+        public async Task Logout(string RedirectTo = null)
+        {
+            _navigation.NavigateTo("Auth/Logout", true);
+         
         }
     }
 }
