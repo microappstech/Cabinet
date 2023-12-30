@@ -6,12 +6,12 @@
 @using Radzen.Blazor
 @using Microsoft.AspNetCore.Identity;
 @using Microsoft.AspNetCore.Authorization
-@attribute [Authorize(Roles = "admin, ADMMODCO")]
+
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
 <PageTitle>Application Roles</PageTitle>
 <RadzenContent Container="main">
     <ChildContent>
-        <RadzenHeading Size="H1" Text="@L["pageTitle.Text"]">
+        <RadzenHeading Size="H1" Text="@L["Roles"]">
         </RadzenHeading>
         <div class="row">
             <div class="col-md-12">

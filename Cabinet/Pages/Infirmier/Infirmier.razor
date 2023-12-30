@@ -1,6 +1,6 @@
-﻿@page "/doctors"
+﻿@page "/infirmiers"
 @layout MainLayout
-@inherits DoctorComponent
+@inherits InfirmierComponent
 @using Radzen
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
 <PageTitle>Doctors</PageTitle>
@@ -15,19 +15,19 @@
                 </RadzenButton>
             </div>
             <div class="col-md-12">
-                <RadzenDataGrid EmptyText="Aucune donnée."  FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@Doctors" TItem="Cabinet.Models.Doctor">
+                <RadzenDataGrid EmptyText="Aucune donnée." FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@infirmiers" TItem="Cabinet.Models.Infirmier">
                     <Columns>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Doctor" Property="FullName">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Property="FullName">
                             <Template Context="DocContext">
-                                <img src="@DocContext.Photo"   width="60" style="border-radius:50%"/>
+                                <img src="@DocContext.Photo" width="60" style="border-radius:50%" />
                                 <span>@DocContext.FullName</span>
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Doctor" Property="Specialite" Title="@L["Specialites"]">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Property="Specialite" Title="@L["Specialites"]">
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Doctor" Property="PhoneNumber" Title="@L["PhoneNumber"]">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Property="PhoneNumber" Title="@L["PhoneNumber"]">
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Doctor" Filterable="false" Sortable="false" Width="120px" TextAlign="TextAlign.Center">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Filterable="false" Sortable="false" Width="120px" TextAlign="TextAlign.Center">
                             <Template Context="modCoModelsModCoDataType">
                                 <RadzenButton ButtonStyle="Radzen.ButtonStyle.Primary" Icon="edit" Size="ButtonSize.Medium" Click="@((args) =>Edit(modCoModelsModCoDataType))" @onclick:stopPropagation="true">
                                 </RadzenButton>
@@ -42,4 +42,3 @@
     </ChildContent>
 </RadzenContent>
 
-    

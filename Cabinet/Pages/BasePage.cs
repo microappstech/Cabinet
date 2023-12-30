@@ -18,9 +18,14 @@ namespace Cabinet.Pages
 
         [Inject] protected IJSRuntime JSRuntime { get; set; }
 
-        public void Notify()
+        public void Notify(NotificationSeverity r, string Title, string Message)
         {
-            notificationService.Notify(NotificationSeverity.Error,"");
+            notificationService.Notify(r, Message, Title, duration: 4000);
+        }
+
+        public void Confrm(NotificationSeverity r, string Title, string Message)
+        {
+            DialogService.Confirm(Message, Title,new ConfirmOptions { CancelButtonText="Annuler", OkButtonText = "Confirmer" }) ;
         }
     }
 }

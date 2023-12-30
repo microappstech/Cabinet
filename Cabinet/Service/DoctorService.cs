@@ -40,7 +40,7 @@ namespace Cabinet.Service
             try
             {
                 Context.Doctors.Add(doctor);
-                await Context.SaveChangesAsync();
+                Context.SaveChanges();
                 return doctor;
             }catch(Exception ex)
             {

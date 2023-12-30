@@ -60,8 +60,9 @@ namespace Cabinet.Controlles
             {
                 var claims = new List<Claim>()
                 {
-                        new Claim(ClaimTypes.Name, "admin"),
-                        new Claim(ClaimTypes.Email, "admin")
+                        new Claim(ClaimTypes.Name, "ADMIN"),
+                        new Claim(ClaimTypes.Email, "admin"),
+                        new Claim(ClaimTypes.Role, "ADMIN"),
                 };
 
                 roleManager.Roles.ToList().ForEach(r => claims.Add(new Claim(ClaimTypes.Role, r.Name)));

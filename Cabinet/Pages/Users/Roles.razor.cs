@@ -44,7 +44,7 @@ namespace Cabinet.Pages.Users
 
         protected async System.Threading.Tasks.Task Button0Click(MouseEventArgs args)
         {
-            //var dialogResult = await DialogService.OpenAsync<Role>("Add Application Role", null);
+            var dialogResult = await DialogService.OpenAsync<AddRole>("Add Application Role", null);
             await Load();
         }
 

@@ -1,6 +1,7 @@
 ﻿using Cabinet.Service;
 using Cabinet.Models;
 using Microsoft.AspNetCore.Components;
+using Radzen;
 
 namespace Cabinet.Pages.Doctors
 {
@@ -9,6 +10,10 @@ namespace Cabinet.Pages.Doctors
         [Parameter] public int Id { get; set; }
         [Inject] DoctorService doctorService { get; set; }
         public Models.Doctor doctor { get; set; }
+
+        public string ErrorMsg { get; set; }
+        public string fileName;
+        public long? fileSize;
         protected override async Task OnInitializedAsync()
         {
             await Security.InitializeAsync(AuthenticationStateProvider);
@@ -28,12 +33,38 @@ namespace Cabinet.Pages.Doctors
         }
         public async Task Submit(Models.Doctor doctor)
         {
-            var result = await doctorService.CreateDoctor(doctor);
-            if(result == null)
+
+            try
             {
-                await InvokeAsync(StateHasChanged);
+
+                var result = await doctorService.UpdateDoctor(doctor);
+                if(result)
+                {
+                    await InvokeAsync(StateHasChanged);
+                    DialogService.Close();
+                }
+                Notify(NotificationSeverity.Success, "Création termné avec succès", "Succès");
                 DialogService.Close();
             }
+            catch (Exception e)
+            {
+                Notify(NotificationSeverity.Error, "Echec ", "quelque chose n'est pas correct");
+            }
+        }
+
+
+        public void OnChange(string value, string name)
+        {
+
+        }
+
+        public void OnError(UploadErrorEventArgs args, string name)
+        {
+            if(args.Message.ToLower().Contains("too large"))
+            {
+                ErrorMsg = "la taille d'image dépasse la taille autorisé";
+            }
+
         }
     }
 }

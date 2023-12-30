@@ -16,10 +16,11 @@
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
-                                <RadzenFileInput @bind-Value=@firstEmployee.Photo @bind-FileName=@fileName @bind-FileSize=@fileSize TValue="string" class="w-100" 
-                                    Change=@(args => OnChange(args, "FileInput")) Error=@(args => OnError(args, "FileInput")) InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"/>
-                                </RadzenCard>
+                                <RadzenFileInput @bind-Value=@doctor.Photo  TValue="string" class="w-100" 
+                                    Change=@(args => OnChange(args, "FileInput")) Error=@(args => OnError(args, "FileInput")) FileSize="@fileSize" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"/>
+                                <RadzenLabel Visible="@(!string.IsNullOrWhiteSpace(ErrorMsg))" class="text-danger">@ErrorMsg</RadzenLabel>
                             </div>
+                            <small class="text-danger">@ErrorMsg</small>
                         </div>
                         <div style="margin-bottom: 1rem" class="row">
                             <div class="col-md-3">
@@ -58,9 +59,9 @@
 
                         <div class="row">
                             <div class="col offset-sm-3">
-                                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="@L["Submit"]" ButtonStyle="ButtonStyle.Primary">
+                                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" class="px-5 py-1" Text="@L["Submit"]" ButtonStyle="ButtonStyle.Primary">
                                 </RadzenButton>
-                                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="@L["Annuler"]" Click="@(()=>DialogService.Close())">
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" class="py-1 px-5" style="margin-left: 1rem" Text="@L["Annuler"]" Click="@(()=>DialogService.Close())">
                                 </RadzenButton>
                             </div>
                         </div>

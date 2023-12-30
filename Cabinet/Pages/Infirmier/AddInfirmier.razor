@@ -1,5 +1,5 @@
-﻿@page "/Editdoctor"
-@inherits EditDoctorComponent
+﻿@page "/Addinfirmier"
+@inherits AddInfirmierComponent
 @using Radzen
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
 
@@ -7,7 +7,7 @@
     <ChildContent>
         <div class="row">
             <div class="col-md-12">
-                <RadzenTemplateForm Data="@doctor" Visible="@(doctor != null)" TItem="Models.Doctor" Submit="@Submit">
+                <RadzenTemplateForm Data="@infirmier" Visible="@(infirmier != null)" TItem="Models.Infirmier" Submit="@Submit">
                     <ChildContent>
                         <div style="margin-bottom : 1rem" class="row">
                             <div class="col-md-3">
@@ -16,7 +16,7 @@
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
-                                <RadzenFileInput @bind-Value=@doctor.Photo TValue="string" class="w-100"
+                                <RadzenFileInput @bind-Value=@infirmier.Photo TValue="string" class="w-100"
                                                  Change=@(args => OnChange(args, "FileInput")) Error=@(args => OnError(args, "FileInput")) FileSize="@fileSize" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})" />
                                 <RadzenLabel Visible="@(!string.IsNullOrWhiteSpace(ErrorMsg))" class="text-danger">@ErrorMsg</RadzenLabel>
                             </div>
@@ -28,21 +28,9 @@
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
-                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(doctor.FullName)" Name="Nom">
+                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(infirmier.FullName)" Name="Nom">
                                 </RadzenTextBox>
                                 <RadzenRequiredValidator Component="Nom" Text="@L["Le nom est requis"]" style="position: absolute">
-                                </RadzenRequiredValidator>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: 1rem" class="row">
-                            <div class="col-md-3">
-                                <RadzenLabel Text="@L["Specialité"]" Component="nom" style="width: 100%">
-                                </RadzenLabel>
-                            </div>
-                            <div class="col-md-9">
-                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(doctor.Specialite)" Name="Spe">
-                                </RadzenTextBox>
-                                <RadzenRequiredValidator Component="Spe" Text="@L["La spécalté est requise"]" style="position: absolute">
                                 </RadzenRequiredValidator>
                             </div>
                         </div>
@@ -52,7 +40,7 @@
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
-                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(doctor.PhoneNumber)" Name="phone">
+                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(infirmier.PhoneNumber)" Name="phone">
                                 </RadzenTextBox>
                             </div>
                         </div>
@@ -70,5 +58,4 @@
             </div>
         </div>
     </ChildContent>
-
 </RadzenContent>
