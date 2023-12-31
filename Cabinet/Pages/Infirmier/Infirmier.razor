@@ -7,7 +7,7 @@
 
 <RadzenContent Container="main">
     <ChildContent>
-        <RadzenHeading Size="H1" Text="@L["Statuts d'établissement"]">
+        <RadzenHeading Size="H1" Text="@L["Les Infirmiers"]">
         </RadzenHeading>
         <div class="row">
             <div class="col-md-12">
@@ -15,15 +15,15 @@
                 </RadzenButton>
             </div>
             <div class="col-md-12">
-                <RadzenDataGrid EmptyText="Aucune donnée." FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@infirmiers" TItem="Cabinet.Models.Infirmier">
+                <RadzenDataGrid @ref="@grid" EmptyText="Aucune donnée." FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@infirmiers" TItem="Cabinet.Models.Infirmier">
                     <Columns>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Property="FullName">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Property="FullName" Title="@L["Nom"]">
                             <Template Context="DocContext">
                                 <img src="@DocContext.Photo" width="60" style="border-radius:50%" />
                                 <span>@DocContext.FullName</span>
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Property="Specialite" Title="@L["Specialites"]">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Property="UserName" Title="@L["Idenifiant"]">
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Infirmier" Property="PhoneNumber" Title="@L["PhoneNumber"]">
                         </RadzenDataGridColumn>

@@ -15,18 +15,19 @@ using Cabinet;
 using Cabinet.Shared;
 using Radzen.Blazor;
 using Radzen;
-using Cabinet.Service;
 using Cabinet.Models;
+using Cabinet.Service;
 
-namespace Cabinet.Pages.Infirmier
+namespace Cabinet.Pages.Assisstant
 {
-    public partial class AddInfirmierComponent : BasePage
+    public partial class AddAssisstantComponent:BasePage
     {
-        [Inject] InfirmierService infirmierService {  get; set; }
-        public Models.Infirmier infirmier{ get; set; }
+
+        [Inject] AssisstantService assisstantService { get; set; }
+        public Models.Assisstant assisstant { get; set; }
+        
         public int fileSize { get; set; }
         public string ErrorMsg { get; set; }
-
         protected override async Task OnInitializedAsync()
         {
             await Security.InitializeAsync(AuthenticationStateProvider);
@@ -36,36 +37,32 @@ namespace Cabinet.Pages.Infirmier
             }
             else
             {
-                await Load();    
+                await Load();
             }
         }
 
         public async Task Load()
         {
-            infirmier = new Models.Infirmier(){};
+            assisstant = new Models.Assisstant() { };
         }
-
-
-        public async Task Submit(Models.Infirmier infirmier)
+        public async Task Submit(Models.Assisstant assisstant)
         {
             try
             {
                 User us = new User()
                 {
-                    RoleNames = new string[]
-                    {
-                        "infirmier".ToUpper()
-                    },
-                    FullName = infirmier.FullName,
-                    Photo = infirmier.Photo
+                    RoleNames = new string[] { "ASSISSTANT" },
+                    FullName = assisstant.FullName,
+                    Photo = assisstant.Photo
                 };
                 var res = await Security.CreateUser(us);
-                infirmier.UserId = res.Id;
-                infirmier.UserName = res.UserName;
-                var result = await infirmierService.CreateItem(infirmier);
+                assisstant.UserId = res.Id;
+                assisstant.UserName = res.UserName;
+                var result = await assisstantService.CreateItem(assisstant);
                 await InvokeAsync(StateHasChanged);
                 DialogService.Close();
-                Notify(NotificationSeverity.Success, "Création terminé avec succès", "Succès");
+
+                Notify(NotificationSeverity.Success, "Création termné avec succès", "Succès");
                 DialogService.Close();
             }
             catch (Exception e)
@@ -76,14 +73,15 @@ namespace Cabinet.Pages.Infirmier
 
         public void OnChange(string value, string name)
         {
-        }
 
+        }
         public void OnError(UploadErrorEventArgs args, string name)
         {
             if (args.Message.ToLower().Contains("too large"))
             {
                 ErrorMsg = "la taille d'image dépasse la taille autorisé";
             }
+
         }
     }
 }

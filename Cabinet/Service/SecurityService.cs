@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
@@ -52,6 +53,7 @@ namespace Cabinet.Service
         {
             return Principal != null ? Principal.Identity.IsAuthenticated : false;
         }
+        static SemaphoreSlim Slim = new SemaphoreSlim(1,1);
         public async Task<bool> InitializeAsync(AuthenticationStateProvider authenticationStateProvider)
         {
             var auth = await authenticationStateProvider.GetAuthenticationStateAsync();
@@ -59,10 +61,18 @@ namespace Cabinet.Service
             var name = Principal.Identity.Name;
             if(user == null &&  name != null)
             {
-                user =await _userManager.FindByNameAsync(name);
-                if(user != null)
+                await Slim.WaitAsync();
+                try
                 {
-                    user.RoleNames =await _userManager.GetRolesAsync(user);
+                    user =await _userManager.FindByNameAsync(name);
+                    if(user != null)
+                    {
+                        user.RoleNames =await _userManager.GetRolesAsync(user);
+                    }
+                }
+                finally
+                {
+                    Slim.Release();
                 }
 
             }
@@ -150,6 +160,11 @@ namespace Cabinet.Service
 
 
             return role;
+        }
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            var items = context.Users.AsNoTracking();
+            return await Task.FromResult(items);
         }
         public async Task Logout(string RedirectTo = null)
         {

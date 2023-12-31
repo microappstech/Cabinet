@@ -23,7 +23,7 @@
                             <div class="col-12 d-flex align-items-center">
                                 <RadzenSidebarToggle Click="@SidebarToggle0Click" Visible="@Security.IsInRole(new string[]{"ADMIN"})" Style="border:none;">
                                 </RadzenSidebarToggle>
-                                <RadzenImage Path="Modco3.png" Style="width:115px; height:auto;" class="@(Security.IsInRole(new string[]{"ADMIN"}) ? "" : "ml-4")"></RadzenImage>
+                                <RadzenImage Path="Cabinet.png" Style="width:40px; height:auto;" class="@(Security.IsInRole(new string[]{"ADMIN"}) ? "" : "ml-4")"></RadzenImage>
                                 <div style="flex-grow: 1"></div>
                                 <div class="d-flex align-items-center" style="position: relative">
                                     
@@ -57,26 +57,20 @@
                         <RadzenPanelMenu style="height: 100%">
                             <ChildContent>
 
-                                <RadzenPanelMenuItem Text="@L["Dashboard"]" Path="dashboard" Visible="true" Selected="true">
+                                <RadzenPanelMenuItem Text="@L["Dashboard"]" Path="dashboard" Visible="true" >
                                 </RadzenPanelMenuItem>
 
                                 <RadzenPanelMenuItem Text="@L["Doctors"]" Path="doctors" Visible="true"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Infirmers"]" Path="infirmiers" Visible="true"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Roles"]" Path="roles" Visible="true"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Assisstants"]" Path="Assisstants" Visible="true"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Utilisateurs"]" Path="Utilisateurs" Visible="true"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Mes Maladies"]" Path="patients" Visible="true"></RadzenPanelMenuItem>
 
-                                <RadzenPanelMenuItem Text="@L["Tableau de board"]" Path="dashboard" Visible="@Security.IsInRole(new string[]{"ADMMODCO"})" >
-                                </RadzenPanelMenuItem>
-
-                                <RadzenPanelMenuItem Text="@L["Etablissements"]" Path="etablissements" Visible="@Security.IsInRole(new string[]{"ADMMODCO"})" >
-                                </RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="Classes" Path="classes" Visible="@Security.IsInRole(new string[]{"ADMMODCO"})">
-                                </RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Elèves"]" Path="eleves" Visible="@Security.IsInRole(new string[]{"ADMMODCO"})">
-                                </RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Enseignants"]" Path="enseignants" Visible="@Security.IsInRole(new string[]{"ADMMODCO"})">
+                                <RadzenPanelMenuItem Text="@L["Tableau de board"]" Path="dashboard" Visible="@Security.IsInRole(new string[]{"ADMIN"})" >
                                 </RadzenPanelMenuItem>
 
-
+                                
                             </ChildContent>
                         </RadzenPanelMenu>
                     </ChildContent>

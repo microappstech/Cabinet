@@ -1,0 +1,145 @@
+﻿@page "/"
+@page "/dashboard"
+@layout MainLayout
+@inherits DashboardComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = "ADMIN")]
+@inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+
+<RadzenContent Container="main">
+    <ChildContent>
+        
+        <div class="row mb-3">
+            <div class="row mb-3">
+
+                <div class="col-4">
+                    <div style="border: solid 1px #e6ecef; border-radius: 4px; padding: 1rem;">
+                        <div class="row">
+                            <div class="align-items-center d-flex col-sm-3" style="">
+                                <RadzenIcon Icon="supervisor_account" class="text-white" style="background-color: #479cc8; font-size: 48px; height: 60px; width: 60px; border-radius: 4px;">
+                                </RadzenIcon>
+                            </div>
+                            <div class="col-sm-9 row" style="">
+                                <div class=" align-items-start d-flex">
+                                    <h5 class="rz-text-h5">
+                                        Nombres de doctors
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-12 justify-content-end align-items-end d-flex">
+                                <h6 class="rz-text-h5 m-0" style="color: #f9777f">
+                                    @nbDoctors
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div style="border: solid 1px #e6ecef; border-radius: 4px; padding: 1rem;">
+                        <div class="row">
+                            <div class="align-items-center d-flex col-sm-3" style="">
+                                <RadzenIcon Icon="supervisor_account" class="text-white" style="background-color: #479cc8; font-size: 48px; height: 60px; width: 60px; border-radius: 4px;">
+                                </RadzenIcon>
+                            </div>
+                            <div class="col-sm-9 row" style="">
+                                <div class=" align-items-start d-flex">
+                                    <h5 class="rz-text-h5">
+                                        Nombre d'infirmier
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-12 justify-content-end align-items-end d-flex">
+                                <h6 class="rz-text-h5 m-0" style="color: #f9777f">
+                                    @nbInfirmier
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div style="border: solid 1px #e6ecef; border-radius: 4px; padding: 1rem;">
+                        <div class="row">
+                            <div class="align-items-center d-flex col-sm-3" style="">
+                                <RadzenIcon Icon="supervisor_account" class="text-white" style="background-color: #479cc8; font-size: 48px; height: 60px; width: 60px; border-radius: 4px;">
+                                </RadzenIcon>
+                            </div>
+                            <div class="col-sm-9 row" style="">
+                                <div class=" align-items-start d-flex">
+                                    <h5 class="rz-text-h5">
+                                        Nombre de patient
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-12 justify-content-end align-items-end d-flex">
+                                <h6 class="rz-text-h5 m-0" style="color: #f9777f">
+                                    @nbPatients
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                
+                <div class="col-4">
+                    <div style="border: solid 1px #e6ecef; border-radius: 4px; padding: 1rem;">
+                        <div class="row">
+                            <div class="align-items-center d-flex col-sm-3" style="">
+                                <RadzenIcon Icon="supervisor_account" class="text-white" style="background-color: #479cc8; font-size: 48px; height: 60px; width: 60px; border-radius: 4px;">
+                                </RadzenIcon>
+                            </div>
+                            <div class="col-sm-9 row" style="">
+                                <div class=" align-items-start d-flex">
+                                    <h5 class="rz-text-h5">
+                                        Nombres de rendez-vous
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-12 justify-content-end align-items-end d-flex">
+                                <h6 class="rz-text-h5 m-0" style="color: #479cc8">
+                                    @nbAppoitement
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div style="border: solid 1px #e6ecef; border-radius: 4px; padding: 1rem;">
+                        <div class="row">
+                            <div class="align-items-center d-flex col-sm-3" style="">
+                                <RadzenIcon Icon="supervisor_account" class="text-white" style="background-color: #479cc8; font-size: 48px; height: 60px; width: 60px; border-radius: 4px;">
+                                </RadzenIcon>
+                            </div>
+                            <div class="col-sm-9 row" style="">
+                                <div class=" align-items-start d-flex">
+                                    <h5 class="rz-text-h5">
+                                        Nombres d'Asssitants
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-12 justify-content-end align-items-end d-flex">
+                                <h6 class="rz-text-h5 m-0" style="color: #479cc8">
+                                    @nbAppoitement
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+                
+    </ChildContent>
+</RadzenContent>
+

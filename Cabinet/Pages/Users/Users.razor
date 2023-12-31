@@ -1,0 +1,48 @@
+﻿@page "/Utilisateurs"
+@inherits UsersComponent
+@using Radzen
+@inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+
+
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="@L["Utilisateurs"]">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px; float:right;" Text="@L["Ajouter"]" >
+                </RadzenButton>
+            </div>
+            <div class="col-md-12">
+                <RadzenDataGrid @ref="@grid0" EmptyText="Aucune donnée." FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@users" TItem="Cabinet.Models.User">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.User" Property="FullName" Title="@L["Nom"]">
+                            <Template Context="DocContext">
+                                <img src="@DocContext.Photo" width="60" style="border-radius:50%" />
+                                <span>@DocContext.FullName</span>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.User" Property="UserName" Title="@L["Idenifiant"]">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.User" Property="IsConnected" Title="@L["IsConnected"]">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.User" Property="Rol" Title="@L["Role"]">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.User" Filterable="false" Sortable="false" Width="120px" TextAlign="TextAlign.Center">
+                            <Template Context="modCoModelsModCoDataType">
+                               @*  <RadzenButton ButtonStyle="Radzen.ButtonStyle.Primary" Icon="edit" Size="ButtonSize.Medium" Click="@((args) =>Edit(modCoModelsModCoDataType))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, modCoModelsModCoDataType))" @onclick:stopPropagation="true">
+                                </RadzenButton> *@
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
+
+
+
+

@@ -16,14 +16,15 @@ using Cabinet.Shared;
 using Radzen.Blazor;
 using Cabinet.Service;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
+using Cabinet.Models;
 
-namespace Cabinet.Pages.Doctors
+namespace Cabinet.Pages.Patients
 {
-    public partial class DoctorComponent  : BasePage
+    public partial class PatientsComponent  : BasePage
     {
-        public IEnumerable<Cabinet.Models.Doctor> Doctors { get; set; }
-        public RadzenDataGrid<Models.Doctor> grid0;
-        [Inject] protected DoctorService doctorService { get; set; }    
+        public IEnumerable<Cabinet.Models.Patient> patients { get; set; }
+        public RadzenDataGrid<Models.Patient> grid0;
+        [Inject] protected PatientService patientService{ get; set; }    
         protected override async Task OnInitializedAsync()
         {
             await Security.InitializeAsync(AuthenticationStateProvider);
@@ -38,24 +39,24 @@ namespace Cabinet.Pages.Doctors
         }
         public async Task Load()
         {
-            Doctors = await doctorService.GetDoctors();
+            patients = await patientService.GetAll();
 
         }
         public async Task Ajouter()
         {
-            var result = await DialogService.OpenAsync<AddDoctor>("Add Doctor", new Dictionary<string, object> { });
+            var result = await DialogService.OpenAsync<AddPatient>("Ajouter Client", new Dictionary<string, object> { });
         }
-        public async Task Edit(Models.Doctor doctor)
+        public async Task Edit(Models.Patient patient)
         {
-            var result = await DialogService.OpenAsync<EditDoctor>("Edit Doctor", new Dictionary<string, object> { { "Id", doctor.Id } });
+            var result = await DialogService.OpenAsync<EditPatient>("Edit le client", new Dictionary<string, object> { { "Id", patient.Id } });
         }
-        public async Task Delete(EventArgs eventArgs, Models.Doctor doctor)
+        public async Task Delete(EventArgs eventArgs, Models.Patient patient)
         {
-            if(await Confirm("Confirmation de suppression","Etes vous sure de vouloir supprimer ce doctor") == true)
+            if(await Confirm("Confirmation de suppression","Etes vous sure de vouloir supprimer ce client") == true)
             {
                 try
                 {
-                    var res = await doctorService.DeleteDoctor(doctor.Id);
+                    var res = await patientService.DeleteItem(patient.Id);
                     if (res) {
                         Notify(Radzen.NotificationSeverity.Success, "Succès", "Suppression terminé avec succès");
                     }

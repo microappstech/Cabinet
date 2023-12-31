@@ -18,6 +18,7 @@ using Radzen;
 using Cabinet.Service;
 using Cabinet.Models;
 using Cabinet.Pages.Doctors;
+using System.Numerics;
 
 namespace Cabinet.Pages.Infirmier
 {
@@ -25,6 +26,7 @@ namespace Cabinet.Pages.Infirmier
     {
         [Inject] InfirmierService infirmierService { get; set; }
         public IEnumerable<Models.Infirmier> infirmiers { get; set; }
+        public RadzenDataGrid<Models.Infirmier> grid;
         public int fileSize { get; set; }
         public string ErrorMsg { get; set; }
 
@@ -56,8 +58,8 @@ namespace Cabinet.Pages.Infirmier
         }
         public async Task Delete(EventArgs eventArgs, Models.Infirmier infirmier)
         {
-            try
-            {
+            try { 
+
                 var result = await infirmierService.DeleteItem(infirmier.Id);
                 if (result)
                 {
@@ -65,11 +67,13 @@ namespace Cabinet.Pages.Infirmier
                 }
                 else
                 {
-                    Notify(NotificationSeverity.Error, "Echèc", "something wrong");
+                    Notify(Radzen.NotificationSeverity.Error, "Echèc", "Suppression terminé avec erreurs");
                 }
-            }catch (Exception ex)
+                await grid.Reload();
+            }
+            catch (Exception ex)
             {
-                    Notify(NotificationSeverity.Error, "Echèc", "something wrong");
+                Notify(Radzen.NotificationSeverity.Error, "Echèc", "Suppression terminé avec erreurs");
             }
         }
     }

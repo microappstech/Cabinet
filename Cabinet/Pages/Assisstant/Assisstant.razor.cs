@@ -15,21 +15,22 @@ using Cabinet;
 using Cabinet.Shared;
 using Radzen.Blazor;
 using Cabinet.Service;
-using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
+using Cabinet.Pages.Doctors;
 
-namespace Cabinet.Pages.Doctors
+namespace Cabinet.Pages.Assisstant
 {
-    public partial class DoctorComponent  : BasePage
+    public partial class AssisstantComponent:BasePage
     {
-        public IEnumerable<Cabinet.Models.Doctor> Doctors { get; set; }
-        public RadzenDataGrid<Models.Doctor> grid0;
-        [Inject] protected DoctorService doctorService { get; set; }    
+        [Inject]
+        public AssisstantService assisstantService { get; set; }
+        public RadzenDataGrid<Models.Assisstant> grid0;
+        public IEnumerable<Models.Assisstant> assisstants { get; set; }
         protected override async Task OnInitializedAsync()
         {
             await Security.InitializeAsync(AuthenticationStateProvider);
-            if(!Security.IsAuthenticated())
+            if (!Security.IsAuthenticated())
             {
-                Navigation.NavigateTo("login",true);
+                Navigation.NavigateTo("login", true);
             }
             else
             {
@@ -38,25 +39,29 @@ namespace Cabinet.Pages.Doctors
         }
         public async Task Load()
         {
-            Doctors = await doctorService.GetDoctors();
-
+            var items = await assisstantService.GetAll();
+            assisstants = items;
         }
+
         public async Task Ajouter()
         {
-            var result = await DialogService.OpenAsync<AddDoctor>("Add Doctor", new Dictionary<string, object> { });
+            var result = await DialogService.OpenAsync<AddAssisstant>("Ajouter une assistant", new Dictionary<string, object> { });
+            await grid0.Reload();
         }
-        public async Task Edit(Models.Doctor doctor)
+        public async Task Edit(Models.Assisstant assisstant)
         {
-            var result = await DialogService.OpenAsync<EditDoctor>("Edit Doctor", new Dictionary<string, object> { { "Id", doctor.Id } });
+            var result = await DialogService.OpenAsync<EditDoctor>("Edit Doctor", new Dictionary<string, object> { { "Id", assisstant.Id } });
+            await grid0.Reload();
         }
-        public async Task Delete(EventArgs eventArgs, Models.Doctor doctor)
+        public async Task Delete(EventArgs eventArgs, Models.Assisstant assisstant)
         {
-            if(await Confirm("Confirmation de suppression","Etes vous sure de vouloir supprimer ce doctor") == true)
+            if (await Confirm("Confirmation de suppression", "Etes vous sure de vouloir supprimer cet assistant") == true)
             {
                 try
                 {
-                    var res = await doctorService.DeleteDoctor(doctor.Id);
-                    if (res) {
+                    var res = await assisstantService.DeleteItem(assisstant.Id);
+                    if (res)
+                    {
                         Notify(Radzen.NotificationSeverity.Success, "Succès", "Suppression terminé avec succès");
                     }
                     else
@@ -64,6 +69,7 @@ namespace Cabinet.Pages.Doctors
                         Notify(Radzen.NotificationSeverity.Error, "Echèc", "Suppression terminé avec erreurs");
                     }
                     await grid0.Reload();
+
                 }
                 catch (Exception ex)
                 {

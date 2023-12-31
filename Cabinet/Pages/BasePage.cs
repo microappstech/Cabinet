@@ -15,6 +15,7 @@ namespace Cabinet.Pages
         [Inject] protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
         [Inject] protected DialogService DialogService { get; set; }
         [Inject] NotificationService notificationService { get; set; }
+        [Inject] protected GeneralService generalService { get; set; }
 
         [Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -23,9 +24,9 @@ namespace Cabinet.Pages
             notificationService.Notify(r, Message, Title, duration: 4000);
         }
 
-        public void Confrm(NotificationSeverity r, string Title, string Message)
+        public Task<bool?> Confirm(string Title, string Message)
         {
-            DialogService.Confirm(Message, Title,new ConfirmOptions { CancelButtonText="Annuler", OkButtonText = "Confirmer" }) ;
+           return DialogService.Confirm(Message, Title,new ConfirmOptions { CancelButtonText="Annuler", OkButtonText = "Confirmer" }) ;
         }
     }
 }
