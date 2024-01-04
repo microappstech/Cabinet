@@ -15,17 +15,21 @@ using Cabinet;
 using Cabinet.Shared;
 using Radzen.Blazor;
 using Radzen;
-using Cabinet.Models;
 using Cabinet.Service;
+using Cabinet.Models;
 
-namespace Cabinet.Pages.Assisstant
+namespace Cabinet.Pages.Appointements
 {
-    public partial class AddAssisstantComponent:BasePage
+    public partial class EditAppointementComponent : BasePage
     {
+        [Parameter] public int Id { get; set; }
+        public Models.Appointment appointment { get; set; }
+        public IEnumerable<Patient> patients { get; set; }
+        public IEnumerable<Doctor> doctors { get; set; }
+        [Inject] public AppointmentService appointmentService { get; set; }
+        [Inject] public PatientService patientService { get; set; }
+        [Inject] public DoctorService doctorService { get; set; }
 
-        [Inject] AssisstantService assisstantService { get; set; }
-        public Models.Assisstant assisstant { get; set; }
-        
         public int fileSize { get; set; }
         public string ErrorMsg { get; set; }
         protected override async Task OnInitializedAsync()
@@ -40,30 +44,23 @@ namespace Cabinet.Pages.Assisstant
                 await Load();
             }
         }
-
-        public async Task Load()
+        protected async Task Load()
         {
-            assisstant = new Models.Assisstant() { };
+            appointment = await appointmentService.GetById(Convert.ToInt32(Id));
+            patients = await patientService.GetAll();
+            doctors = await doctorService.GetDoctors();
         }
-        public async Task Submit(Models.Assisstant assisstant)
+
+        public async Task Submit(Models.Appointment appointment)
         {
             try
             {
-                User us = new User()
+                var result = await appointmentService.UpdateItem(appointment);
+                if(result)
                 {
-                    RoleNames = new string[] { "ASSISSTANT" },
-                    FullName = assisstant.FullName,
-                    Photo = assisstant.Photo
-                };
-                var res = await Security.CreateUser(us);
-                assisstant.UserId = res.Id;
-                assisstant.UserName = res.UserName;
-                var result = await assisstantService.CreateItem(assisstant);
-                await InvokeAsync(StateHasChanged);
-                DialogService.Close();
-
-                Notify(NotificationSeverity.Success, "Création terminé avec succès", "Succès");
-                DialogService.Close();
+                    Notify(NotificationSeverity.Success, "Edition terminé avec succès", "Succès");
+                    DialogService.Close();
+                }
             }
             catch (Exception e)
             {

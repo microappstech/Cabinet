@@ -1,0 +1,50 @@
+﻿@page "/appointement"
+
+@layout MainLayout
+@inherits AppointementsComponent
+@using Radzen
+@inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+<PageTitle>Doctors</PageTitle>
+
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="@L["Les rendez vous"]">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px; float:right;" Text="@L["Ajouter"]" Click="@Ajouter">
+                </RadzenButton>
+            </div>
+            <div class="col-md-12">
+                <RadzenDataGrid @ref="@grid0" EmptyText="Aucune donnée." FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@appointments" TItem="Cabinet.Models.Appointment">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="FullName" Title="@L["Nom"]">
+                            
+                           <Template Context="AppCon" >
+                               <img src="@AppCon.Patient.Photo" />
+                               @AppCon.Patient?.FullName
+                           </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="DateCreated" Title="@L["Date création"]"></RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="DateAppointement" Title="@L["Date de rendez vous"]">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="Passed" Title="@L["Complté"]">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="Annuled" Title="@L["Annulé"]">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Filterable="false" Sortable="false" Width="120px" TextAlign="TextAlign.Center">
+                            <Template Context="AppCOn">
+                                <RadzenButton ButtonStyle="Radzen.ButtonStyle.Primary" Icon="edit" Size="ButtonSize.Medium" Click="@((args) =>Edit(AppCOn))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, AppCOn))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
+
+

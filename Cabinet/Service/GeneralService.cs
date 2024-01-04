@@ -11,9 +11,9 @@ namespace Cabinet.Service
         {
         }
 
-        public async Task<int> GetNbPatients()
+        public async Task<int> GetNbHelpers()
         {
-            var res = Context.Patients.AsNoTracking().Count();
+            var res = Context.Assisstants.AsNoTracking().Count();
             return await Task.FromResult(res);
         }
         public async Task<int> GetNbInfirmiers()
@@ -29,6 +29,17 @@ namespace Cabinet.Service
         public async Task<int> GetNbAppoitemet()
         {
             var res = Context.Appointments.AsNoTracking().Count();
+            return await Task.FromResult(res);
+        }
+
+        public async Task<int> GetNbAppoitementPassed()
+        {
+            var res = Context.Appointments.Where(i => i.Passed == true).AsNoTracking().Count();
+            return await Task.FromResult(res);
+        }
+        public async Task<int> GetNbAppoitementCanceled()
+        {
+            var res = Context.Appointments.Where(i => i.Annuled == true).AsNoTracking().Count();
             return await Task.FromResult(res);
         }
         public async Task<int> GetNbPatient()
