@@ -23,6 +23,32 @@
                             </div>
                             <small class="text-danger">@ErrorMsg</small>
                         </div>
+                        
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Nom"]" Component="nom" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(patient.FullName)" Name="Nom">
+                                </RadzenTextBox>
+                                <RadzenRequiredValidator Component="Nom" Text="@L["Le nom est requis"]" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Maladie"]" Component="nom" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(patient.Malade)" Name="Nom">
+                                </RadzenTextBox>
+                                <RadzenRequiredValidator Component="Nom" Text="@L["Le champ est requis"]" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
                         <div style="margin-bottom: 1rem" class="row">
                             <div class="col-md-3">
                                 <RadzenLabel Text="@L["CIN : "]" Component="nom" style="width: 100%">
@@ -35,15 +61,16 @@
                                 </RadzenRequiredValidator>
                             </div>
                         </div>
+
                         <div style="margin-bottom: 1rem" class="row">
                             <div class="col-md-3">
-                                <RadzenLabel Text="@L["Nom"]" Component="nom" style="width: 100%">
+                                <RadzenLabel Text="@L["Email : "]" Component="email" style="width: 100%">
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
-                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(patient.FullName)" Name="Nom">
+                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(patient.Email)" Name="Email">
                                 </RadzenTextBox>
-                                <RadzenRequiredValidator Component="Nom" Text="@L["Le nom est requis"]" style="position: absolute">
+                                <RadzenRequiredValidator Component="Email" Text="@L["L'email est requis"]" style="position: absolute">
                                 </RadzenRequiredValidator>
                             </div>
                         </div>
@@ -58,6 +85,18 @@
                             </div>
                         </div>
 
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Ville"]" Component="nom" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(patient.Ville)" Name="Nom">
+                                </RadzenTextBox>
+                                <RadzenRequiredValidator Component="Nom" Text="@L["La ville est requise"]" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col offset-sm-3">

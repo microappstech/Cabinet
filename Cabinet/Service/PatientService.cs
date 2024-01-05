@@ -1,5 +1,6 @@
 ﻿using Cabinet.Data;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cabinet.Service
 {
@@ -11,7 +12,8 @@ namespace Cabinet.Service
 
         public async Task<IEnumerable<Models.Patient>> GetAll()
         {
-            var items = Context.Patients.ToList();
+            var items = Context.Patients.AsQueryable();
+            items = items.Include(i=>i.Appointments);
             return await Task.FromResult(items);
         }
         public async Task<Models.Patient> GetItemById(int id)

@@ -4,6 +4,7 @@ using Cabinet.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cabinet.Migrations
 {
     [DbContext(typeof(CabinetContext))]
-    partial class CabinetContextModelSnapshot : ModelSnapshot
+    [Migration("20240105202902_tmgrate4")]
+    partial class tmgrate4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +41,9 @@ namespace Cabinet.Migrations
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Passed")
                         .HasColumnType("bit");
 
@@ -49,6 +54,8 @@ namespace Cabinet.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
 
                     b.HasIndex("PatientId");
 
@@ -199,6 +206,10 @@ namespace Cabinet.Migrations
 
             modelBuilder.Entity("Cabinet.Models.Appointment", b =>
                 {
+                    b.HasOne("Cabinet.Models.Doctor", null)
+                        .WithMany("Appointments")
+                        .HasForeignKey("DoctorId");
+
                     b.HasOne("Cabinet.Models.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
@@ -206,6 +217,11 @@ namespace Cabinet.Migrations
                         .IsRequired();
 
                     b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Cabinet.Models.Doctor", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("Cabinet.Models.Patient", b =>

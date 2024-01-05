@@ -1,0 +1,31 @@
+﻿@page "/SeeAppo"
+@inherits ConsultAppointementComponent
+@using Radzen
+@inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+
+    
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="@L["Les rendez vous du semaine'"]">
+        </RadzenHeading>
+
+        <div class="row">
+            @inject DialogService DialogService
+
+            <RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Cabinet.Models.Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
+                             TextProperty="Patient.FullName" SelectedIndex="1"
+                             SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender>
+                <RadzenDayView />
+                <RadzenWeekView />
+                <RadzenMonthView />
+                <RadzenYearView />
+            </RadzenScheduler>
+
+
+           
+        </div>
+    
+
+    </ChildContent>
+</RadzenContent>
+

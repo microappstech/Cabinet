@@ -60,7 +60,7 @@ namespace Cabinet.Service
                 return false;
             }
         }
-        public async Task<Models.Appointment> CreateItem(Appointment appointment)
+        public async Task<bool> CreateItem(Appointment appointment)
         {
             Context.Appointments.Add(appointment);
             try
@@ -69,9 +69,9 @@ namespace Cabinet.Service
             }
             catch (Exception ex)
             {
-                return null;
+                return false;
             }
-            return await Task.FromResult(appointment);
+            return await Task.FromResult(true   );
         }
 
     }

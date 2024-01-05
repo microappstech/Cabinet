@@ -21,7 +21,7 @@
                         <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="FullName" Title="@L["Nom"]">
                             
                            <Template Context="AppCon" >
-                               <img src="@AppCon.Patient.Photo" />
+                               <img src="@AppCon.Patient.Photo" height="60" width="60" style="border-radius:50%; margin-right:4px;"/>
                                @AppCon.Patient?.FullName
                            </Template>
                         </RadzenDataGridColumn>

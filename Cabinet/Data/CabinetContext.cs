@@ -17,11 +17,11 @@ namespace Cabinet.Data
                 .HasForeignKey(i => i.PatientId)
                 .HasPrincipalKey(i => i.Id);
 
-            builder.Entity<Doctor>()
-                .HasMany(i => i.Appointments)
-                .WithOne(i => i.Doctor)
-                .HasForeignKey(i => i.DoctorId)
-                .HasPrincipalKey(i => i.Id);
+            //builder.Entity<Doctor>()
+            //    .HasMany(i => i.Appointments)
+            //    .WithOne(i => i.Doctor)
+            //    .HasForeignKey(i => i.DoctorId)
+            //    .HasPrincipalKey(i => i.Id);
                 
             
         }

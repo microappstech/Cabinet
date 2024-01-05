@@ -52,7 +52,7 @@
                         </RadzenContentContainer>
                     </ChildContent>
                 </RadzenBody>
-                <RadzenSidebar @ref="sidebar0" Visible="true">
+                <RadzenSidebar @ref="sidebar0" Visible="true" Style="background-color:purple">
                     <ChildContent>
                         <RadzenPanelMenu style="height: 100%">
                             <ChildContent>
@@ -65,10 +65,10 @@
                                 <RadzenPanelMenuItem Text="@L["Roles"]" Path="roles" Visible="true"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Assisstants"]" Path="Assisstants" Visible="true"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Utilisateurs"]" Path="Utilisateurs" Visible="true"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Mes Maladies"]" Path="patients" Visible="true"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Patients"]" Path="patients" Visible="true"></RadzenPanelMenuItem>
 
-                                <RadzenPanelMenuItem Text="@L["Ls Rendez Vous"]" Path="appointement" Visible="@Security.IsInRole(new string[]{"ADMIN"})">
-                                </RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Ls Rendez Vous"]" Path="appointement" Visible="@Security.IsInRole(new string[]{"ADMIN"})"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Consulter Les rendz vous"]" Path="SeeAppo" Visible="@Security.IsInRole(new string[]{"ADMIN"})"></RadzenPanelMenuItem>
 
                                 
                             </ChildContent>

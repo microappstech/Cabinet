@@ -11,18 +11,6 @@
                     <ChildContent>
                         <div style="margin-bottom: 1rem" class="row">
                             <div class="col-md-3">
-                                <RadzenLabel Text="@L["Nom de doctor"]" Component="nom" style="width: 100%">
-                                </RadzenLabel>
-                            </div>
-                            <div class="col-md-9">
-                                <RadzenDropDown Data="@doctors" TextProperty="FullName" ValueProperty="Id" Placeholder="@L["Choisir un médcine"]" ShowSearch="false" style="display: block; width: 100%" @bind-Value="@(appointment.DoctorId)" Name="DoctorId">
-                                </RadzenDropDown>
-                                <RadzenRequiredValidator Component="DoctorId" Text="@L["Choisir un médcine"]" style="position: absolute" DefaultValue="0">
-                                </RadzenRequiredValidator>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: 1rem" class="row">
-                            <div class="col-md-3">
                                 <RadzenLabel Text="@L["Specialité"]" Component="nom" style="width: 100%">
                                 </RadzenLabel>
                             </div>
@@ -39,7 +27,7 @@
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
-                                <RadzenDatePicker @bind-Value=@appointment.DateAppointement Min="DateTime.Now" Name="RadzenDatePickerBindValue" AllowClear="true" AllowInput="true" />
+                                <RadzenDatePicker @bind-Value=@appointment.DateAppointement Min="DateTime.Now" ShowTime="true" Name="RadzenDatePickerBindValue" AllowClear="true" AllowInput="true" />
                             </div>
                         </div>
 
@@ -58,7 +46,7 @@
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
-                                <RadzenCheckBox @bind-Value="appointment.Passed"  Name="Canceled"></RadzenCheckBox>
+                                <RadzenCheckBox @bind-Value="appointment.Annuled"  Name="Canceled"></RadzenCheckBox>
                             </div>
                         </div>
 

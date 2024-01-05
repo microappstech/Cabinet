@@ -55,8 +55,10 @@ namespace Cabinet.Pages.Appointements
             try
             {
                 appointment.DateCreated = DateTime.Now;
+                appointment.Passed = false;
+                appointment.Annuled = false;
                 var result = await appointmentService.CreateItem(appointment);
-                if(result != null)
+                if(result)
                 {
                     Notify(NotificationSeverity.Success, "Création terminé avec succès", "Succès");
                     DialogService.Close();

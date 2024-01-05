@@ -14,6 +14,8 @@ namespace Cabinet.Models
         public string UserId { get; set; }
         public string PhoneNumber { get; set; }
         public string Photo { get; set; }
+        public string Ville { get; set; }
+        public string Malade { get; set; }
         public DateTime? LastVisit { get; set; }
         public ICollection<Appointment> Appointments {get;set;}
         [NotMapped] public int NbVisits { get; set; }

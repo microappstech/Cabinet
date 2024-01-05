@@ -18,22 +18,30 @@
                     <Columns>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="FullName" Title="@L["Nom"]">
                             <Template Context="PatContext">
-                                <img src="@PatContext.Photo"   width="60" style="border-radius:50%"/>
+                                <img src="@PatContext.Photo" height="60"   width="60" style="border-radius:50%"/>
                                 <span>@PatContext.FullName</span>
                             </Template>
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="CIN" Title="@L["CIN"]">
                         </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="Malade" Title="@L["Malade"]"></RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="Ville" Title="@L["Ville"]"></RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="LastVisit" Title="@L["Derniere visite"]">
+                            <Template Context="ConPat">
+                                @ConPat.Appointments.OrderByDescending(i=>i.DateAppointement).FirstOrDefault()?.DateAppointement
+                            </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="PhoneNumber" Title="@L["PhoneNumber"]">
-                        </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Filterable="false" Sortable="false" Width="120px" TextAlign="TextAlign.Center">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="PhoneNumber" Title="@L["PhoneNumber"]"></RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="NbVisits" Title="@L["Nombre de visite"]">
+                                <Template Context="Pat">
+                                    @Pat.Appointments?.Count
+                                </Template>
+                            </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Filterable="false" Sortable="false" Width="140px" TextAlign="TextAlign.Center">
                             <Template Context="PatCon">
-                                <RadzenButton ButtonStyle="Radzen.ButtonStyle.Primary" Icon="edit" Size="ButtonSize.Medium" Click="@((args) =>Edit(PatCon))" @onclick:stopPropagation="true">
-                                </RadzenButton>
-                                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, PatCon))" @onclick:stopPropagation="true">
-                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="edit" Size="ButtonSize.Medium" Click="@((args) =>Edit(PatCon))" @onclick:stopPropagation="true"></RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="info" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, PatCon))" @onclick:stopPropagation="true"></RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="delete" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, PatCon))" @onclick:stopPropagation="true"></RadzenButton>
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>
