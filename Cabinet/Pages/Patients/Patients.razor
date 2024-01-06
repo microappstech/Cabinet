@@ -14,12 +14,12 @@
                 </RadzenButton>
             </div>
             <div class="col-md-12">
-                <RadzenDataGrid @ref="@grid0" EmptyText="Aucune donnée." FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@patients" TItem="Cabinet.Models.Patient">
+                <RadzenDataGrid @ref="@grid0" EmptyText="Aucune donnée." Visible="@(patients is not null)" FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@patients" TItem="Cabinet.Models.Patient">
                     <Columns>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="FullName" Title="@L["Nom"]">
                             <Template Context="PatContext">
-                                <img src="@PatContext.Photo" height="60"   width="60" style="border-radius:50%"/>
-                                <span>@PatContext.FullName</span>
+                                <img src="@PatContext?.Photo" height="60"   width="60" style="border-radius:50%"/>
+                                <span>@PatContext?.FullName</span>
                             </Template>
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="CIN" Title="@L["CIN"]">
@@ -28,19 +28,19 @@
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="Ville" Title="@L["Ville"]"></RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="LastVisit" Title="@L["Derniere visite"]">
                             <Template Context="ConPat">
-                                @ConPat.Appointments.OrderByDescending(i=>i.DateAppointement).FirstOrDefault()?.DateAppointement
+                                @ConPat?.Appointments.OrderByDescending(i=>i.DateAppointement).FirstOrDefault()?.DateAppointement
                             </Template>
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="PhoneNumber" Title="@L["PhoneNumber"]"></RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="NbVisits" Title="@L["Nombre de visite"]">
                                 <Template Context="Pat">
-                                    @Pat.Appointments?.Count
+                                    @Pat?.Appointments?.Count
                                 </Template>
                             </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Filterable="false" Sortable="false" Width="140px" TextAlign="TextAlign.Center">
                             <Template Context="PatCon">
                                 <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="edit" Size="ButtonSize.Medium" Click="@((args) =>Edit(PatCon))" @onclick:stopPropagation="true"></RadzenButton>
-                                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="info" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, PatCon))" @onclick:stopPropagation="true"></RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="info" Size="ButtonSize.Medium" Click="@(() =>Detail(PatCon))" @onclick:stopPropagation="true"></RadzenButton>
                                 <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="delete" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, PatCon))" @onclick:stopPropagation="true"></RadzenButton>
                             </Template>
                         </RadzenDataGridColumn>

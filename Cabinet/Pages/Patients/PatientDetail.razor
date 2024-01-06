@@ -1,5 +1,46 @@
-﻿<h3>PatientDetail</h3>
+﻿@page "/patDetails"
+@using Radzen
+@inherits PatientDetailComponent
 
-@code {
-
-}
+<RadzenContent Visible="@(patient is not null)">
+    <ChildContent>
+        <div Class="" >
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Start" Style="background-color:darkgreen; color:white; width:100%;" Gap="1rem" Class="rz-color-on-primary-light">
+                <RadzenImage Path="@patient.Photo" Style="width: 70px; height: 70px; border-radius: 50%;" />
+                <RadzenStack Gap="0" Style="width:100%" >
+                    <div class="row d-flex">
+                        <div class="col-6">
+                            <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-2 rz-my-0 rz-color-on-primary-light">Le nom</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1"><b class="rz-color-on-primary-light">@(patient.FullName)</b></RadzenText>
+                        </div>
+                        <div class="col-6">
+                            <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-4 rz-mb-0 rz-color-on-primary-light">Maladie</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1" class="rz-color-on-primary-light"><b>@patient.Malade</b></RadzenText>
+                        </div>
+                    </div>
+                </RadzenStack>
+            </RadzenStack>
+            <RadzenCard class="rz-background-color-primary-light rz-shadow-0 rz-border-radius-0 rz-p-8" style="margin: 1rem calc(-1 * var(--rz-card-padding));">
+                <RadzenText TextStyle="TextStyle.H6" class="rz-color-on-primary-light"><strong>Delivery Information</strong></RadzenText>
+                <RadzenRow RowGap="0">
+                    <RadzenColumn SizeSM="4">
+                        <RadzenText TextStyle="TextStyle.Overline" class="rz-color-on-primary-light rz-display-flex rz-mt-4 rz-mb-0">Country</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" class="rz-color-on-primary-light"><b>@(patient.CIN)</b></RadzenText>
+                        <RadzenText TextStyle="TextStyle.Overline" class="rz-color-on-primary-light rz-display-flex rz-mt-4 rz-mb-0">City</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" class="rz-color-on-primary-light"><b>@(patient.Ville)</b></RadzenText>
+                    </RadzenColumn>
+                    <RadzenColumn SizeSM="8">
+                        <RadzenText TextStyle="TextStyle.Overline" class="rz-color-on-primary-light rz-display-flex rz-mt-4 rz-mb-0">Ship name</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" class="rz-color-on-primary-light"><b>@(patient.PhoneNumber)</b></RadzenText>
+                        <RadzenText TextStyle="TextStyle.Overline" class="rz-color-on-primary-light rz-display-flex rz-mt-4 rz-mb-0">Freight</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" class="rz-color-on-primary-light"><b>@String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", "32$")</b></RadzenText>
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenCard>
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="0">
+                <RadzenButton Variant="Variant.Text" class="rz-text-secondary-color" Text="Cancel" />
+                <RadzenButton Variant="Variant.Text" Text="Send" />
+            </RadzenStack>
+        </div>
+    </ChildContent>
+</RadzenContent>

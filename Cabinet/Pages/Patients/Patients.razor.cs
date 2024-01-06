@@ -50,6 +50,10 @@ namespace Cabinet.Pages.Patients
         {
             var result = await DialogService.OpenAsync<EditPatient>("Edit le client", new Dictionary<string, object> { { "Id", patient.Id } });
         }
+        public async Task Detail(Models.Patient patient)
+        {
+            var result = await DialogService.OpenAsync<PatientDetail>("Details", new Dictionary<string, object> { { "Id", patient.Id } });
+        }
         public async Task Delete(EventArgs eventArgs, Models.Patient patient)
         {
             if(await Confirm("Confirmation de suppression","Etes vous sure de vouloir supprimer ce client") == true)
