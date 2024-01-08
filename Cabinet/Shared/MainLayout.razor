@@ -52,10 +52,10 @@
                         </RadzenContentContainer>
                     </ChildContent>
                 </RadzenBody>
-                <RadzenSidebar @ref="sidebar0" Visible="true" Style="background-color:purple">
+                <RadzenSidebar @ref="sidebar0" Visible="true" Style="background-color:#f96332">
                     <ChildContent>
-                        <RadzenPanelMenu style="height: 100%">
-                            <ChildContent>
+                        <RadzenPanelMenu style="height: 100%; background:#f96332;">
+                            <ChildContent >
 
                                 <RadzenPanelMenuItem Text="@L["Dashboard"]" Path="dashboard" Visible="true" ></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Consulter Les rendz vous"]" Path="SeeAppo" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>

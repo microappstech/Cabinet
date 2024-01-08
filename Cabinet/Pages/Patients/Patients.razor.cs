@@ -52,7 +52,7 @@ namespace Cabinet.Pages.Patients
         }
         public async Task Detail(Models.Patient patient)
         {
-            var result = await DialogService.OpenAsync<PatientDetail>("Details", new Dictionary<string, object> { { "Id", patient.Id } });
+            var result = await DialogService.OpenAsync<PatientDetail>("Details", new Dictionary<string, object> { { "Id", patient.Id } }, new Radzen.DialogOptions { Draggable=true, Bottom = "0px", Left ="0px", Style="padding:0px; margin:0px; background-color:orange;"});
         }
         public async Task Delete(EventArgs eventArgs, Models.Patient patient)
         {
