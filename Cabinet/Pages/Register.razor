@@ -1,0 +1,86 @@
+﻿@page "/register"
+@using Radzen
+@layout RegisterLayout
+<style>
+    textarea:focus, input:focus {
+        outline: none !important;
+    }
+
+    ::placeholder {
+        color: white !important;
+        opacity: 1 !important; /* Firefox */
+        font-weight:200;
+        font-size:17px
+    }
+    input::placeholder {
+        color:white !important
+    }
+    ::-ms-input-placeholder { /* Edge 12 -18 */
+        color: white !important
+    }
+</style>
+
+
+<RadzenContent>
+    <ChildContent>
+        <div class="row mx-auto  mb-5" style="justify-content:center">
+            <div class="col-5" style="padding:0">
+                <img src="/images/doctor.png" height="100%" />
+            </div>
+            <div class="col-5" style="background-color:#0099cb; padding:30px;">
+                <p style="text-align:center; color:white; color:white; background-color:#eb7143;">Ce inscription seuement pour les Medcins</p>
+                <h1 style="text-align:center; color:white;font-weight:100">CREATE COMPTE</h1>
+                <form method="post" action="Auth/Register" enctype="multipart/form-data">
+
+                    <div class="form-group text-white mb-5">
+                        <RadzenTextBox name="fullname" type="text" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Votre Nom ..."/>
+                        <RadzenRequiredValidator Component="fullname" Text="le nom est requis"></RadzenRequiredValidator>
+                    </div>
+
+                    <div class="form-group text-white mb-5">
+                        <RadzenTextBox name="email" AutoComplete="false" type="email" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Enter email"/>
+                        <RadzenRequiredValidator Component="email" Text="l' email est requis"></RadzenRequiredValidator>
+                    </div>
+
+                    <div class="form-group text-white mb-5">
+                        <RadzenTextBox name="specalite" type="text" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Votre Specialite"/>
+                        <RadzenRequiredValidator Component="specalite" Text="la spécialité est requise"></RadzenRequiredValidator>
+                    </div>
+
+
+                    <div class="form-group text-white mb-5">
+                        @* <input name="phone" type="tel" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Votre Telephone"> *@
+                        <RadzenTextBox Name="phone" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Votre Telephone"></RadzenTextBox>
+                        <RadzenLengthValidator Component="phone" Max="13" Min="10" Text="Merci de sisair un nombre de telephone correct"></RadzenLengthValidator>
+                    </div>
+
+                    <div class="form-group text-white mb-5">
+                        <RadzenTextBox name="cin" type="text" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="CIN ou Passport" />
+                        
+                    </div>
+                    <div class="form-group text-white mb-5">
+                        <RadzenPassword name="password" AutoComplete="false" type="password" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="**********"/>
+                        <RadzenRequiredValidator Text="le mot de passe est requis" Component="password"></RadzenRequiredValidator>
+                    </div>
+                    <div class="form-group text-white mb-3">
+                        <input name="photo" type="file" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" />
+                    </div>
+
+                    <div class="form-group text-white ">
+
+                        <RadzenCheckBox Checked ="ImDoctor" TValue="bool" Change="@(()=>{ImDoctor=!ImDoctor;})" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control px-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CIN ou Passport" Name="ImDoctor"></RadzenCheckBox>
+                        <RadzenRequiredValidator Component="ImDoctor" Text="vous devez etre un medcine pour créer un compte"></RadzenRequiredValidator>
+                        <RadzenLabel Component="ImDoctor">I accpt that i'm a doctor</RadzenLabel>
+                    </div>
+                    <button class="btn btn-primary px-5" disabled="@(!ImDoctor)" style="background-color:#eb7143">Register</button>
+                </form>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
+
+
+
+@code{
+    public bool ImDoctor; 
+}

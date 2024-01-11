@@ -46,7 +46,7 @@ namespace Cabinet.Pages.Users
             try
             {
                 var securityCreateRoleResult = await Security.CreateRole(args);
-                Navigation.NavigateTo("application-roles");
+                Navigation.NavigateTo("roles");
             }
             catch (System.Exception ex)
             {

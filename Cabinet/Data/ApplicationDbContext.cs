@@ -25,8 +25,5 @@ namespace Cabinet.Data
         }
 
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<IdentityRole> Roles { get; set; }
-
     }
 }

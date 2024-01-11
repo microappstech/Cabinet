@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using Cabinet.Models;
 using Cabinet.Service;
+using Cabinet.Pages.Doctors;
+using System.Security.Cryptography.Xml;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Cabinet.Controlles
 {
@@ -22,17 +25,19 @@ namespace Cabinet.Controlles
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly DoctorService doctorService;
         private readonly IWebHostEnvironment env;
 
         SecurityService Security;
         private readonly ILogger<AuthController> _logger;
-        public AuthController(IWebHostEnvironment env, SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<IdentityRole> roleManager,
-            SecurityService _Security, ILogger<AuthController> logger)
+        public AuthController(IWebHostEnvironment env, SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, DoctorService doctorService,
+        SecurityService _Security, ILogger<AuthController> logger)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.env = env;
+            this.doctorService = doctorService;
             
             Security = _Security;
             _logger = logger;
@@ -104,26 +109,46 @@ namespace Cabinet.Controlles
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(string userName, string password)
+        public async Task<IActionResult> Register(string fullname, string email, string specalite, string phone, string cin, string photo, string password )
         {
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+
+            
+            var user = new User { UserName = email, Email = email };
+
+            var resultUser = await userManager.CreateAsync(user, password);
+
+            if (resultUser.Succeeded)
             {
-                return Redirect("~/Login?error=Utilisateur ou mot de passe invalide");
-            }
-
-            var user = new User { UserName = userName, Email = userName };
-
-            var result = await userManager.CreateAsync(user, password);
-
-            if (result.Succeeded)
-            {
+                string[] roles = new string[] { "DOCTOR" };
+                var r = await roleManager.FindByNameAsync("DOCTOR");
+                if (roles != null && roles.Any())
+                {
+                    var x = await userManager.AddToRoleAsync(user, "DOCTOR"); // .AddToRolesAsync(user, roles);
+                }
+                Models.Doctor doctor = new Models.Doctor()
+                {
+                    FullName = fullname,
+                    UserName = email,
+                    CIN = cin,
+                    Specialite = specalite,
+                      Photo = photo,
+                    PhoneNumber = phone,
+                    UserId = user.Id
+                };
+                var resultDoctor = await doctorService.CreateDoctor(doctor);
                 await signInManager.SignInAsync(user, isPersistent: false);
-                return Redirect("~/");
+                if (resultDoctor != null)
+                {
+                    Redirect("/");
+                }
+                var msg = string.Join(", ", resultUser.Errors.Select(error => error.Description));
+                return Redirect($"~/Register?error={msg}");
+
             }
 
-            var message = string.Join(", ", result.Errors.Select(error => error.Description));
+            var message = string.Join(", ", resultUser.Errors.Select(error => error.Description));
 
-            return Redirect($"~/Login?error={message}");
+            return Redirect($"~/Register?error={message}");
         }
 
         [HttpPost]

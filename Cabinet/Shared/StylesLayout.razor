@@ -1,0 +1,91 @@
+﻿@inherits MainLayoutComponent
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Identity;
+@using Cabinet.Pages
+@inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+
+<RadzenDialog />
+<RadzenNotification />
+<RadzenTooltip />
+<RadzenContextMenu />
+
+<AuthorizeView Context="AuthorizationContext">
+    <NotAuthorized>
+        <RedirectToLogin IsAuthenticated="@AuthorizationContext.User.Identity.IsAuthenticated"/>
+    </NotAuthorized>
+    <Authorized>
+        <RadzenLayout>
+            <ChildContent>
+                <RadzenBody @ref="body0">
+                    <ChildContent>
+                        <div class="row " style="background-color:#153156; margin-top:-1.2%; padding-bottom: 20%;">
+                            <div class="col-12 d-flex align-items-center">
+                                <RadzenSidebarToggle Click="@SidebarToggle0Click" Visible="@Security.IsInRole(new string[]{"ADMIN"})" Style="border:none;color:white;background:none">
+                                </RadzenSidebarToggle>
+                                <RadzenImage Path="Cabinet.png" Style="width:40px; height:auto;" class="@(Security.IsInRole(new string[]{"ADMIN"}) ? "" : "ml-4")"></RadzenImage>
+                                <div style="flex-grow: 1"></div>
+                                <div class="d-flex align-items-center" style="position: relative">
+
+                                    <div style="width: 25px; height: 25px; border-radius: 100%; background-image: url(@(Security.User.Photo)); background-size: cover; background-size: 25px;">
+                                    </div>
+
+                                    <RadzenIcon Icon="account_circle"></RadzenIcon>
+
+                                    <div class="rounded-circle" style="background-color: @(AuthorizationContext.User.Identity.IsAuthenticated == true ? "var(--success)" : "var(--danger)"); height: 10px; width: 10px; position: absolute; top: -2px; right: -2px;"></div>
+                                </div>
+                                <RadzenMenu class="mr-4 text-white" Responsive="false" Style="background:none; color:white;">
+                                    <RadzenMenuItem Text="@(Security?.User?.FullName )" Style=" color:white;">
+                                        <RadzenMenuItem Text="@L["Déconnexion"]" Icon="power_settings_new" Click="@((args) =>logout())" Style="min-width: 150px;color:white"></RadzenMenuItem>
+                                    </RadzenMenuItem>
+                                </RadzenMenu>
+
+                            </div>
+                        </div>
+                            
+                        <RadzenContentContainer Name="main">
+                            <div style="z-index:2; border:1px gray solid;position:absolute; background-color:white; width:96%; top:20%; ">
+                            
+                            @Body 
+                            </div>
+                        </RadzenContentContainer>
+                    </ChildContent>
+                </RadzenBody>
+                <RadzenSidebar @ref="sidebar0" Visible="true" Style="background-color:#f96332">
+                    <ChildContent>
+                        <RadzenPanelMenu style="height: 100%; background:#f96332;">
+                            <ChildContent >
+
+                                <RadzenPanelMenuItem Text="@L["Dashboard"]" Path="dashboard" Visible="true" ></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Consulter Les rendz vous"]" Path="SeeAppo" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Doctors"]" Path="doctors" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Infirmers"]" Path="infirmiers" Visible="@( Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} ))"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Roles"]" Path="roles" Visible="@(false && Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} ))"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Assisstants"]" Path="Assisstants" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Utilisateurs"]" Path="Utilisateurs" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Patients"]" Path="patients" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["LEs Rendez Vous"]" Path="appointement" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+
+                                
+                            </ChildContent>
+                        </RadzenPanelMenu>
+                    </ChildContent>
+                </RadzenSidebar>
+                <RadzenFooter>
+                    <ChildContent>
+
+                        <RadzenLabel Text="@L["footerText.Text"]">
+
+                        </RadzenLabel>   &nbsp  &nbsp  <NavLink href="/politique-de-confidentialite/web">@L["Politique de confidentialité"]</NavLink>
+                        &nbsp  &nbsp  <NavLink href="/mentions-legales">@L["Mentions légales"]</NavLink>
+
+                    </ChildContent>
+                </RadzenFooter>
+            </ChildContent>
+        </RadzenLayout>
+
+    </Authorized>
+</AuthorizeView>
+
+
+

@@ -125,15 +125,6 @@ namespace Cabinet.Service
 
         public async Task<User> CreateUser(User user)
         {
-
-
-            int nbUsers = _userManager.Users.Count() + 1;
-
-            user.UserName = "User_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + "_" + nbUsers.ToString() + "_" + DateTime.UtcNow.Millisecond.ToString();  //DateTime.UtcNow.ToString().Replace("/", "").Replace(":", "").Replace(" ", "");
-            user.Password = user.UserName + '!';// CreateRandomPassword(12);
-            
-
-            
             var result = await _userManager.CreateAsync(user, user.Password);
 
 

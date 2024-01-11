@@ -13,6 +13,9 @@ namespace Cabinet.Models
         public override string PasswordHash { get => base.PasswordHash; set => base.PasswordHash = value; }
         [NotMapped] public string ConfirmPassword { get; set; }
         [NotMapped] public string Password { get; set; }
+        [NotMapped] public string Email{ get; set; }
+        [NotMapped] public string Specialite { get; set; }
+        [NotMapped] public string TypeUser { get; set; }
         public bool IsConnected { get; set; }
         public string Photo { get; set; }
         

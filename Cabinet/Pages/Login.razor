@@ -1,4 +1,5 @@
-﻿@page "/login"
+﻿
+@page "/login"
 @layout Cabinet.Shared.LoginLayout
 @using Radzen;
 
@@ -48,8 +49,9 @@
                     <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary" Style="width: 100%" class="mt-3">
                         @L["Login"]
                     </RadzenButton>
-                    @*/<RadzenLogin AllowResetPassword="false" AllowRegister="false" Register="@Login0Register" LoginText="Valider"  PasswordText="Mot de passe" UserText="Identifiant">
-                    </RadzenLogin>/*@
+                    <div style="text-align:center; color:orangered" class="py-2 text-center ">
+                        <a href="/register">Sign up</a>
+                    </div>
                 </ChildContent>
             </RadzenTemplateForm>
 
