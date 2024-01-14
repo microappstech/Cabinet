@@ -8,7 +8,7 @@ namespace Cabinet.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public override string Id { get; set; }
         public string FullName { get; set; }
         public override string PasswordHash { get => base.PasswordHash; set => base.PasswordHash = value; }
         [NotMapped] public string ConfirmPassword { get; set; }

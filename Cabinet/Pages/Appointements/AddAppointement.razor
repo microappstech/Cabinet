@@ -39,7 +39,7 @@
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
-                                <RadzenDatePicker @bind-Value=@appointment.DateAppointement Min="DateTime.Now" Name="RadzenDatePickerBindValue" AllowClear="true" AllowInput="true" />
+                                <RadzenDatePicker @bind-Value=@appointment.DateAppointement Min="DateTime.Now" ShowTime="true" DateFormat="MM/dd/yyyy HH:mm" HourFormat="24" Name="RadzenDatePickerBindValue" AllowClear="true" AllowInput="true" />
                             </div>
                         </div>
                         <div style="margin-bottom: 1rem" class="row">

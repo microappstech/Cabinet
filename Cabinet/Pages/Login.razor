@@ -1,5 +1,4 @@
-﻿
-@page "/login"
+﻿@page "/login"
 @layout Cabinet.Shared.LoginLayout
 @using Radzen;
 
@@ -50,13 +49,16 @@
                         @L["Login"]
                     </RadzenButton>
                     <div style="text-align:center; color:orangered" class="py-2 text-center ">
-                        <a href="/register">Sign up</a>
+                        <div class="rz-p-12 rz-text-align-center bg-orange-100">
+                            <RadzenLink Path="/register" class="text-white" Text="Register" />
+                            <RadzenLink Path="/forget" class="text-white" Text="Oblier Mote Passe" />
+                        </div>
                     </div>
                 </ChildContent>
             </RadzenTemplateForm>
 
         </div>
-    
+
     </ChildContent>
 </RadzenContent>
 @code {

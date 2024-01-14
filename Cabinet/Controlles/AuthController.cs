@@ -15,6 +15,7 @@ using Cabinet.Service;
 using Cabinet.Pages.Doctors;
 using System.Security.Cryptography.Xml;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using System.Transactions;
 
 namespace Cabinet.Controlles
 {
@@ -112,43 +113,49 @@ namespace Cabinet.Controlles
         public async Task<IActionResult> Register(string fullname, string email, string specalite, string phone, string cin, string photo, string password )
         {
 
-            
-            var user = new User { UserName = email, Email = email };
-
-            var resultUser = await userManager.CreateAsync(user, password);
-
-            if (resultUser.Succeeded)
-            {
-                string[] roles = new string[] { "DOCTOR" };
-                var r = await roleManager.FindByNameAsync("DOCTOR");
-                if (roles != null && roles.Any())
+            //using(var scope = new TransactionScope())
+            //{
+                var user = new User { UserName = email, Email = email };
+                
+                var resultUser = await userManager.CreateAsync(user, password);
+                var _user = await userManager.FindByNameAsync(user.Email);
+                if (resultUser.Succeeded)
                 {
-                    var x = await userManager.AddToRoleAsync(user, "DOCTOR"); // .AddToRolesAsync(user, roles);
+                    string[] roles = new string[] { "DOCTOR" };
+                    var r = await roleManager.FindByNameAsync("DOCTOR");
+                    if (roles != null && roles.Any())
+                    {
+                        var x = await userManager.AddToRoleAsync(_user, "DOCTOR"); // .AddToRolesAsync(user, roles);
+                    }
+                    Models.Doctor doctor = new Models.Doctor()
+                    {
+                        FullName = fullname,
+                        UserName = email,
+                        CIN = cin,
+                        Specialite = specalite,
+                        Photo = photo,
+                        PhoneNumber = phone,
+                        UserId = user.Id
+                    };
+                    var resultDoctor = await doctorService.CreateDoctor(doctor);
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    if (resultDoctor != null)
+                    {
+                        //scope.Complete();
+                        return Redirect("/");
+                    }
+                    
+                    var msg = string.Join(", ", resultUser.Errors.Select(error => error.Description));
+                    return Redirect($"~/Register?error={msg}");
                 }
-                Models.Doctor doctor = new Models.Doctor()
-                {
-                    FullName = fullname,
-                    UserName = email,
-                    CIN = cin,
-                    Specialite = specalite,
-                      Photo = photo,
-                    PhoneNumber = phone,
-                    UserId = user.Id
-                };
-                var resultDoctor = await doctorService.CreateDoctor(doctor);
-                await signInManager.SignInAsync(user, isPersistent: false);
-                if (resultDoctor != null)
-                {
-                    return Redirect("/");
-                }
-                var msg = string.Join(", ", resultUser.Errors.Select(error => error.Description));
-                return Redirect($"~/Register?error={msg}");
+                
+                var message = string.Join(", ", resultUser.Errors.Select(error => error.Description));
+                //scope.Dispose();
+                return Redirect($"~/Register?error={message}");
+                
 
-            }
+            //}
 
-            var message = string.Join(", ", resultUser.Errors.Select(error => error.Description));
-
-            return Redirect($"~/Register?error={message}");
         }
 
         [HttpPost]

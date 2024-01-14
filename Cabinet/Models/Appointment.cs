@@ -18,8 +18,9 @@ namespace Cabinet.Models
         //public int DoctorId { get; set; }
         public string Visit { get; set; }
         [NotMapped] public DateTime? Start { get { return DateAppointement; } set { } }
-        [NotMapped] public DateTime? End { get { return DateAppointement.Value.AddHours(1); } set { } }
+        [NotMapped] public DateTime? End { get { return DateAppointement.HasValue?DateAppointement.Value.AddHours(1):DateTime.MaxValue; } set { } }
         public Patient Patient {get; set;}
+        [NotMapped] public string PatientVisit { get { return this.Patient?.FullName + " - " + Visit; } }
         //public Doctor Doctor { get; set;}
     }
 }

@@ -26,6 +26,8 @@
                                @AppCon.Patient?.FullName
                            </Template>
                         </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="Visit" Title="@L["Type Visite"]">
+                        </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="DateCreated" Title="@L["Date création"]"></RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="DateAppointement" Title="@L["Date de rendez vous"]">
                         </RadzenDataGridColumn>

@@ -109,7 +109,7 @@ namespace Cabinet.Service
             try
             {
                 var user = await _userManager.FindByIdAsync(id);
-                var ex = _userManager.GetRolesAsync(user).Result;
+                
                 if (user != null)
                 {
                     context.Entry(user).Reload();

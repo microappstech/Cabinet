@@ -36,7 +36,7 @@
                         </div>
                         <div style="margin-bottom: 1rem" class="row">
                             <div class="col-md-3">
-                                <RadzenLabel Text="@L["Nom"]" Component="mot de passe" style="width: 100%">
+                                <RadzenLabel Text="@L["Mot de passe"]" Component="mot de passe" style="width: 100%">
                                 </RadzenLabel>
                             </div>
                             <div class="col-md-9">
@@ -44,6 +44,17 @@
                                 </RadzenPassword>
                                 <RadzenRequiredValidator Component="Password" Text="@L["Le champs est requis"]" style="position: absolute">
                                 </RadzenRequiredValidator>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Email"]" Component="email" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox MaxLength="255" style="display: block; width: 100%" @bind-Value="@(infirmier.Email)" Name="email">
+                                </RadzenTextBox>
                             </div>
                         </div>
                         <div style="margin-bottom: 1rem" class="row">
