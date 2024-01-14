@@ -139,7 +139,7 @@ namespace Cabinet.Controlles
                 await signInManager.SignInAsync(user, isPersistent: false);
                 if (resultDoctor != null)
                 {
-                    Redirect("/");
+                    return Redirect("/");
                 }
                 var msg = string.Join(", ", resultUser.Errors.Select(error => error.Description));
                 return Redirect($"~/Register?error={msg}");

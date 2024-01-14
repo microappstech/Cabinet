@@ -2,7 +2,7 @@
 @inherits AddAppointementComponent
 @using Radzen
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
-
+@attribute [Authorize(Roles = "ADMIN,DOCTOR,ASSISSTANT,INFIRMIER")]
 <RadzenContent Container="main">
     <ChildContent>
         <div class="row">

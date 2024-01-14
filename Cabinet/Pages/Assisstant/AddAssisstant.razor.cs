@@ -53,7 +53,8 @@ namespace Cabinet.Pages.Assisstant
                 {
                     RoleNames = new string[] { "ASSISSTANT" },
                     FullName = assisstant.FullName,
-                    Photo = assisstant.Photo
+                    Photo = assisstant.Photo,
+                    Password = assisstant.Password
                 };
                 var res = await Security.CreateUser(us);
                 assisstant.UserId = res.Id;

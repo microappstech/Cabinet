@@ -3,7 +3,7 @@
 @inherits PatientsComponent
 @using Radzen
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
-
+@attribute [Authorize(Roles = "ADMIN,DOCTOR,ASSISSTANT,INFIRMIER")]
 <RadzenContent Container="main">
     <ChildContent>
         <RadzenHeading Size="H1" Text="@L["Clients"]">

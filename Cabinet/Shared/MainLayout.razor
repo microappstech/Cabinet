@@ -59,11 +59,11 @@
 
                                 <RadzenPanelMenuItem Text="@L["Dashboard"]" Path="dashboard" Visible="true" ></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Consulter Les rendz vous"]" Path="SeeAppo" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Doctors"]" Path="doctors" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Infirmers"]" Path="infirmiers" Visible="@( Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} ))"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Roles"]" Path="roles" Visible="@(false && Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} ))"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Assisstants"]" Path="Assisstants" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Utilisateurs"]" Path="Utilisateurs" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Doctors"]" Path="doctors" Visible="@Security.IsInRole(new string[]{"ADMIN"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Infirmers"]" Path="infirmiers" Visible="@( Security.IsInRole(new string[]{"ADMIN","DOCTOR"} ))"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Roles"]" Path="roles" Visible="@(false && Security.IsInRole(new string[]{"ADMIN","DOCTOR"} ))"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Assisstants"]" Path="Assisstants" Visible="@Security.IsInRole(new string[]{"ADMIN","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Utilisateurs"]" Path="Utilisateurs" Visible="@Security.IsInRole(new string[]{"ADMIN"} )"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Patients"]" Path="patients" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["LEs Rendez Vous"]" Path="appointement" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
 

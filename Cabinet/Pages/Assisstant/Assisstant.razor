@@ -5,7 +5,7 @@
 @using Radzen
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
 <PageTitle>Doctors</PageTitle>
-
+@attribute [Authorize(Roles = "ADMIN,DOCTOR,INFIRMIER")]
 <RadzenContent Container="main">
     <ChildContent>
         <RadzenHeading Size="H1" Text="@L["Doctors"]">

@@ -14,6 +14,7 @@ namespace Cabinet.Models
         public string Photo { get; set; }
         public string PhoneNumber{ get; set; }
         [NotMapped] public string Email { get; set; }
+        [NotMapped] public string Password { get; set; }
         public string CIN { get; set; }
 
         //public ICollection<Appointment> Appointments { get; set; }

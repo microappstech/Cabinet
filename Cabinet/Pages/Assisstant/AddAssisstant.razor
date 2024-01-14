@@ -35,7 +35,19 @@
                                 </RadzenRequiredValidator>
                             </div>
                         </div>
-                        
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Nom"]" Component="mot de passe" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenPassword MaxLength="255" style="display: block; width: 100%" @bind-Value="@(assisstant.Password)" Name="Password">
+                                </RadzenPassword>
+                                <RadzenRequiredValidator Component="Password" Text="@L["Le champs est requis"]" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+
                         <div style="margin-bottom: 1rem" class="row">
                             <div class="col-md-3">
                                 <RadzenLabel Text="@L["Numero de telophone"]" Component="phone" style="width: 100%">

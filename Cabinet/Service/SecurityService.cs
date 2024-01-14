@@ -84,13 +84,13 @@ namespace Cabinet.Service
             return result;
         }
 
-        public bool IsInRole(params string[] roles)
+        public bool IsInRole(string[] roles)
         {
             //if (roles.Contains("Everybody"))
             //{
             //    return true;
             //}
-
+            
             if (!IsAuthenticated())
             {
                 return false;
@@ -101,14 +101,15 @@ namespace Cabinet.Service
                 return true;
             }
 
-            return roles.Any(role => Principal.IsInRole(role));
+            var r =  roles.Any(role => Principal.IsInRole(role));
+            return r;
         }
         public async Task<User> GetUserById(string id)
         {
             try
             {
                 var user = await _userManager.FindByIdAsync(id);
-
+                var ex = _userManager.GetRolesAsync(user).Result;
                 if (user != null)
                 {
                     context.Entry(user).Reload();

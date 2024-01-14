@@ -57,7 +57,8 @@ namespace Cabinet.Pages.Infirmier
                         "infirmier".ToUpper()
                     },
                     FullName = infirmier.FullName,
-                    Photo = infirmier.Photo
+                    Photo = infirmier.Photo,
+                    Password = infirmier.Password,
                 };
                 var res = await Security.CreateUser(us);
                 infirmier.UserId = res.Id;

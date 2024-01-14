@@ -37,7 +37,9 @@ namespace Cabinet.Pages.Doctors
                 {
                     RoleNames = new string[] { "DOCTOR" },
                     FullName = doctor.FullName,
-                    Photo = doctor.Photo
+                    Photo = doctor.Photo,
+                    Password = doctor.Password
+
                 };
                 var res = await Security.CreateUser(us);
                 doctor.UserId = res.Id;
