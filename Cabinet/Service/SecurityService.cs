@@ -1,5 +1,6 @@
 ﻿using Cabinet.Data;
 using Cabinet.Models;
+using Cabinet.Pages.Users;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -163,6 +164,17 @@ namespace Cabinet.Service
         {
             _navigation.NavigateTo("Auth/Logout", true);
          
+        }
+        public async Task<string> ReInitPassword(User user)
+        {
+            var result = await _userManager.RemovePasswordAsync(user);
+            string Password = "Cab"+ DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Second.ToString() + "!_" + DateTime.UtcNow.Millisecond.ToString()+"#";
+            result = await _userManager.AddPasswordAsync(user,Password);
+            if (result.Succeeded)
+            {
+                return await Task.FromResult(Password);
+            }
+            return null;
         }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Pkix;
 using Radzen;
 using System.Globalization;
 
@@ -46,6 +47,7 @@ builder.Services.AddScoped<PatientService>();
 builder.Services.AddScoped<SecurityService>();
 builder.Services.AddScoped<DoctorService>();
 builder.Services.AddScoped<GeneralService>();
+builder.Services.AddScoped<EmailService>();
 builder.Services.AddLocalization();
 
 

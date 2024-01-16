@@ -2,8 +2,15 @@
 @layout Cabinet.Shared.ForgetLayout
 @using Radzen
 @using System.Text.Json
+@using System.Collections.Generic;
+@using Microsoft.JSInterop;
+@inherits BasePage
+
+
+
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L;
+@inject NavigationManager UriHelper
 
 <PageTitle>Login</PageTitle>
 <RadzenContent Container="main">
@@ -24,13 +31,13 @@
                     pour réinitialisation votre mot de passe, entrer votre mail adresse
                 </div>
             </div>
-            <RadzenTemplateForm Action="@($"Auth/forget?redirectUrl={redirectUrl}")" Method="post" TItem="Model" Data=@model >
+            <RadzenTemplateForm Action="@($"Mail/SendMailReset")" Method="post" TItem="Model" Data=@model >
                 <ChildContent>
                     <div class="form-group">
                         <RadzenLabel Text="Email" for="Email" class="mb-2 text-white" />
-                        <RadzenTextBox Name="Email"  Placeholder="Sisair votre email" class="form-control" @bind-Value="@model.Email" />
-                        <RadzenRequiredValidator Component="Email" Text="Email is required" Popup=@popup Style="position: absolute" />
-                        <RadzenEmailValidator Component="Email" Text="Provide a valid email address" Popup=@popup Style="position: absolute" />
+                        <RadzenTextBox Name="Mail" Placeholder="Sisair votre email" class="form-control" @bind-Value="@model.Email" />
+                        <RadzenRequiredValidator Component="Mail" Text="Email is required" Popup=@popup Style="position: absolute" />
+                        <RadzenEmailValidator Component="Mail" Text="Provide a valid email address" Popup=@popup Style="position: absolute" />
 
                     </div>
                     <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary" Style="width: 100%" class="mt-3">
@@ -53,6 +60,7 @@
 @code {
     class Model
     {
+        
         public string Email { get; set; }
     }
 
@@ -65,5 +73,20 @@
     protected void handleShowPassword()
     {
         ShowPassword = !ShowPassword;
+    }
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        await Load();
+    }
+    protected async System.Threading.Tasks.Task Load()
+    {
+        var query = System.Web.HttpUtility.ParseQueryString(new Uri(UriHelper.ToAbsoluteUri(UriHelper.Uri).ToString()).Query);
+
+        var error = query.Get("message");
+
+        if (!string.IsNullOrEmpty(error))
+        {
+            Notify(NotificationSeverity.Error, $"Error", $"{error}" );
+        }
     }
 }
