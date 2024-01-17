@@ -70,7 +70,7 @@ namespace Cabinet.Controlles
             }
             var password = await Security.ReInitPassword(user);
             
-            var sended = await emailService.sendMailResset(user, password);
+                    var sended = await emailService.sendMailResset(user, password);
             if (sended)
             {
                 return Redirect("/forget?message=le nouveau mot passe est bien envoyé au votre courier");

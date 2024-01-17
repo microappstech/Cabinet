@@ -22,6 +22,8 @@ namespace Cabinet.Pages.Infirmier
 {
     public partial class EditInfirmierComponent:BasePage
     {
+        [Parameter]
+        public dynamic Id { get; set; }
         [Inject]
         InfirmierService infirmierService { get; set; }
         public Models.Infirmier infirmier { get; set; }
@@ -43,9 +45,12 @@ namespace Cabinet.Pages.Infirmier
 
         public async Task Load()
         {
-            infirmier = new Models.Infirmier()
+            infirmier = await infirmierService.GetItemById(Convert.ToInt32(Id));
+            if(infirmier == null)
             {
-            };
+                Notify(NotificationSeverity.Error, "Erreur", "Sorry Something Wrong");
+                Navigation.NavigateTo("/Infirmiers");
+            }
         }
 
         public async Task Submit(Models.Infirmier infirmier)

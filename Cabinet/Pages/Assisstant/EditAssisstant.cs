@@ -22,7 +22,7 @@ namespace Cabinet.Pages.Assisstant
 {
     public partial class EditAssisstantComponent:BasePage
     {
-
+        [Parameter] public dynamic Id { get; set; }
         [Inject] AssisstantService assisstantService { get; set; }
         public Models.Assisstant assisstant { get; set; }
         
@@ -43,7 +43,7 @@ namespace Cabinet.Pages.Assisstant
 
         public async Task Load()
         {
-            assisstant = new Models.Assisstant() { };
+            assisstant = await assisstantService.GetById(Convert.ToInt32(Id));
         }
         public async Task Submit(Models.Assisstant assisstant)
         {

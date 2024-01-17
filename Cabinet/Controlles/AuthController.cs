@@ -190,7 +190,7 @@ namespace Cabinet.Controlles
         {
 
 
-            var id = this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var id = this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var user = await userManager.FindByIdAsync(id);
             if (user != null)

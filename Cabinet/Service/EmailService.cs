@@ -9,13 +9,16 @@ namespace Cabinet.Service
     public class EmailService 
     {
         private readonly SmtpClient _smtpClient;
+        IConfiguration _configuration;
         public EmailService(IConfiguration iConfiguration){
-            
+            _configuration = iConfiguration;
         }
         public async Task<bool> sendMailResset(User user, string Password)
         {
+            var config = _configuration.GetSection("STMPServer");
+            var host = config["Host"];
             var message = new MimeMessage();  
-            message.From.Add(new MailboxAddress("Karli Nader", "karli16@ethereal.email"));  
+            message.From.Add(new MailboxAddress(config["Name"], config["Username"]));  
             message.To.Add(new MailboxAddress(user.FullName, user.Email));  
             message.Subject = "Reset Password";
 
@@ -25,9 +28,9 @@ namespace Cabinet.Service
                 $"Your new Password : <h1> {Password} </h1>"
             };
             using var client = new SmtpClient();
-            client.Connect( "smtp.ethereal.email", 587, false);
-            client.Authenticate("karli16@ethereal.email", "dd3MszcGSaq9V6c9NP");
-            client.Send(message);
+            client.Connect(host, Convert.ToInt32(config["Port"]), false);
+            client.Authenticate(config["Username"], config["Password"]);
+            var result = client.Send(message);
             client.Disconnect(true);
             return true;
         }
