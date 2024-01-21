@@ -3,6 +3,8 @@ using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
 using Cabinet.Models;
+using System.Net;
+
 
 namespace Cabinet.Service
 {
@@ -16,22 +18,37 @@ namespace Cabinet.Service
         public async Task<bool> sendMailResset(User user, string Password)
         {
             var config = _configuration.GetSection("STMPServer");
-            var host = config["Host"];
-            var message = new MimeMessage();  
-            message.From.Add(new MailboxAddress(config["Name"], config["Username"]));  
-            message.To.Add(new MailboxAddress(user.FullName, user.Email));  
-            message.Subject = "Reset Password";
-
-            message.Body = new TextPart("plain")
+            
+            string fromEmail = config["Username"] ;
+            string toEmail = user.Email;
+            //string appPassword = "ynva cult rsoq miiy";// config["Password"];
+            string appPassword = config["Password"];
+            using (var message2 = new System.Net.Mail.MailMessage(fromEmail, toEmail))
             {
-                Text = $"Hey Mr {user.Email} " +
-                $"Your new Password : <h1> {Password} </h1>"
-            };
-            using var client = new SmtpClient();
-            client.Connect(host, Convert.ToInt32(config["Port"]), false);
-            client.Authenticate(config["Username"], config["Password"]);
-            var result = client.Send(message);
-            client.Disconnect(true);
+                message2.Subject = "Reset password";
+                message2.Body = $"Hey Mr {user.Email} " +
+                $"Your new Password : <h1> {Password} </h1>";
+
+                using (var client = new System.Net.Mail.SmtpClient("smtp.gmail.com"))
+                {
+                    System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+                    client.Port = 587;
+                    
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(fromEmail, appPassword);
+                    client.EnableSsl = true;
+
+                    try
+                    {
+                        client.Send(message2);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
+                }
+            }
+
             return true;
         }
     }

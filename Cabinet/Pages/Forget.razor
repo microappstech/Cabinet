@@ -60,7 +60,7 @@
 @code {
     class Model
     {
-        
+
         public string Email { get; set; }
     }
 
@@ -82,11 +82,14 @@
     {
         var query = System.Web.HttpUtility.ParseQueryString(new Uri(UriHelper.ToAbsoluteUri(UriHelper.Uri).ToString()).Query);
 
-        var error = query.Get("message");
+        var message = query.Get("message");
 
-        if (!string.IsNullOrEmpty(error))
+        if (!string.IsNullOrEmpty(message))
         {
-            Notify(NotificationSeverity.Error, $"Error", $"{error}" );
+            Notify(NotificationSeverity.Info, $"Error", $"{message}" );
+            if (message?.Contains("bien envoyé")==true){
+                Navigation.NavigateTo("login", true); 
+            }
         }
     }
 }
