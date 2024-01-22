@@ -37,11 +37,12 @@
                                     @Pat?.Appointments?.Count
                                 </Template>
                             </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Filterable="false" Sortable="false" Width="140px" TextAlign="TextAlign.Center">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Filterable="false" Sortable="false" Width="180px" TextAlign="TextAlign.Center">
                             <Template Context="PatCon">
-                                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="edit" Size="ButtonSize.Medium" Click="@((args) =>Edit(PatCon))" @onclick:stopPropagation="true"></RadzenButton>
-                                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="info" Size="ButtonSize.Medium" Click="@(() =>Detail(PatCon))" @onclick:stopPropagation="true"></RadzenButton>
-                                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="delete" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, PatCon))" @onclick:stopPropagation="true"></RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Primary" class=".rz-background-color-primary-dark" Icon="edit"  Size="ButtonSize.Medium" Click="@((args) =>Edit(PatCon))" @onclick:stopPropagation="true"></RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Primary" class=".rz-background-color-primary-dark" Icon="info" Size="ButtonSize.Medium" Click="@(() =>Detail(PatCon))" @onclick:stopPropagation="true"></RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Primary" class=".rz-background-color-primary-dark" Icon="leaderboard" Size="ButtonSize.Medium" Click="@(() =>Statistic(PatCon))" @onclick:stopPropagation="true"></RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Primary" class=".rz-background-color-primary-dark" Icon="delete" Size="ButtonSize.Medium" Click="@((args) =>Delete(args, PatCon))" @onclick:stopPropagation="true"></RadzenButton>
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>

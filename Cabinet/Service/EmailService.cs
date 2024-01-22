@@ -27,7 +27,7 @@ namespace Cabinet.Service
             {
                 message2.Subject = "Reset password";
                 message2.Body = $"Hey Mr {user.Email} " +
-                $"Your new Password : <h1> {Password} </h1>";
+                $"Your new Password : {Password}";
 
                 using (var client = new System.Net.Mail.SmtpClient("smtp.gmail.com"))
                 {

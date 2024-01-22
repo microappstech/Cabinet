@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <RadzenDataGrid @ref="@grid0" EmptyText="Aucune donnée." FilterMode="Radzen.FilterMode.Simple" AllowPaging="true" AllowFiltering="true" AllowSorting="true" Data="@appointments" TItem="Cabinet.Models.Appointment">
                     <Columns>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="FullName" Title="@L["Nom"]">
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Appointment" Property="Patient.FullName" Title="@L["Nom"]">
                             
                            <Template Context="AppCon" >
                                <img src="@AppCon.Patient.Photo" height="60" width="60" style="border-radius:50%; margin-right:4px;"/>

@@ -16,6 +16,7 @@ using Radzen;
 using Radzen.Blazor;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Cabinet.Models;
 
 namespace Cabinet.Pages.Dashboard
 {
@@ -26,8 +27,14 @@ namespace Cabinet.Pages.Dashboard
         public int nbInfirmier { get; set; }
         public int nbAppoitement { get; set; }
         public int nbAppoitementCanceld { get; set; }
+        
         public int nbAppoitementPassed { get; set; }
         public int nbHelpers { get; set; }
+        
+
+        
+
+        
         protected override async Task OnInitializedAsync()
         {
             await Security.InitializeAsync(AuthenticationStateProvider);
@@ -49,7 +56,7 @@ namespace Cabinet.Pages.Dashboard
             nbAppoitementCanceld = await generalService.GetNbAppoitementCanceled();
             nbAppoitementPassed = await generalService.GetNbAppoitementPassed();
             nbHelpers = await generalService.GetNbHelpers();
-
+            
 
 
 

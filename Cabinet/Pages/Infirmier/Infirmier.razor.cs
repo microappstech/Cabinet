@@ -51,12 +51,12 @@ namespace Cabinet.Pages.Infirmier
         public async Task Ajouter()
         {
             var result = await DialogService.OpenAsync<AddInfirmier>("Ajouter l'Infirmier", new Dictionary<string, object> { });
-            await grid.Reload();
+            await Load();
         }
         public async Task Edit(Models.Infirmier infirmier)
         {
             var result = await DialogService.OpenAsync<EditInfirmier>("Editer l'Infirmier", new Dictionary<string, object> { { "Id", infirmier.Id } });
-            await grid.Reload();
+            await Load();
         }
         public async Task Delete(EventArgs eventArgs, Models.Infirmier infirmier)
         {
@@ -71,7 +71,7 @@ namespace Cabinet.Pages.Infirmier
                 {
                     Notify(Radzen.NotificationSeverity.Error, "Echèc", "Suppression terminé avec erreurs");
                 }
-                await grid.Reload();
+                await Load();
             }
             catch (Exception ex)
             {

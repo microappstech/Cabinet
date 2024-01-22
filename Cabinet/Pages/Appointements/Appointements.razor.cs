@@ -26,7 +26,7 @@ namespace Cabinet.Pages.Appointements
         [Inject]
         public AppointmentService appointmentService { get; set; }
         public RadzenDataGrid<Models.Appointment> grid0;
-        public IEnumerable<Models.Appointment> appointments { get; set; }
+        public List<Models.Appointment> appointments { get; set; }
         protected override async Task OnInitializedAsync()
         {
             await Security.InitializeAsync(AuthenticationStateProvider);
@@ -42,18 +42,18 @@ namespace Cabinet.Pages.Appointements
         public async Task Load()
         {
             var items = await appointmentService.GetAll();
-            appointments = items;
+            appointments = items.ToList();
         }
 
         public async Task Ajouter()
         {
             var result = await DialogService.OpenAsync<AddAppointement>("Ajouter un Rendez-vous", new Dictionary<string, object> { });
-            await grid0.Reload();
+            await Load();
         }
         public async Task Edit(Models.Appointment appointment)
         {
             var result = await DialogService.OpenAsync<EditAppointement>("Editer un rendez-vous", new Dictionary<string, object> { { "Id", appointment.Id } });
-            await grid0.Reload();
+            await Load();
         }
         public async Task Delete(EventArgs eventArgs, Models.Appointment appointment)
         {
@@ -70,7 +70,7 @@ namespace Cabinet.Pages.Appointements
                     {
                         Notify(Radzen.NotificationSeverity.Error, "Echèc", "Suppression terminé avec erreurs");
                     }
-                    await grid0.Reload();
+                    await Load();
 
                 }
                 catch (Exception ex)

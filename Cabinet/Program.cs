@@ -48,6 +48,7 @@ builder.Services.AddScoped<SecurityService>();
 builder.Services.AddScoped<DoctorService>();
 builder.Services.AddScoped<GeneralService>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<DashboradService>();
 builder.Services.AddLocalization();
 
 

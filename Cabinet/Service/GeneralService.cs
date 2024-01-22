@@ -1,4 +1,5 @@
 ﻿using Cabinet.Data;
+using Cabinet.Models;
 using Cabinet.Pages;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,19 @@ namespace Cabinet.Service
             var res = Context.Patients.AsNoTracking().Count();
             return await Task.FromResult(res);
         }
-
+        public async Task<List<StatisticPoitement>> StatisticPoitements(int PatientId)
+        {
+            var result = Context.Appointments
+                .Where(a => a.PatientId == PatientId)
+                .GroupBy(a => new { a.PatientId, Month = a.DateAppointement.Value.Month })
+                .Select(group => new StatisticPoitement
+                {
+                    NbVisits = group.Count(),
+                    Months = group.Key.Month,
+                })
+                .OrderBy(resultItem => resultItem.NbVisits)
+                .ToList();
+            return await Task.FromResult(result);
+        }
     }
 }

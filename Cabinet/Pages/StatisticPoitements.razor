@@ -1,0 +1,64 @@
+﻿@page "/StatisticPoitements"
+@using Cabinet.Pages.Patients;
+@using Radzen
+@using Cabinet.Models
+@inherits BasePage
+@inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+
+<RadzenContent Container="main">
+    <ChildContent>
+        <div class="chats">
+            <RadzenChart Visible="true">
+             
+                <RadzenColumnSeries Data="@statisticPoitements" CategoryProperty="Months"  LineType="LineType.Dashed" Title="Nombre de Visites" ValueProperty="NbVisits" Stroke="red" StrokeWidth="10" >
+                </RadzenColumnSeries>
+                <RadzenCategoryAxis Padding="20" />
+                <RadzenValueAxis >
+                    <RadzenGridLines Visible="true" />
+                    <RadzenAxisTitle Text="Les Mois" />
+                </RadzenValueAxis>
+            </RadzenChart>
+            
+        </div>
+    </ChildContent>
+
+</RadzenContent>
+
+@code{
+    [Parameter] public dynamic Id { get; set; }
+    public IList<StatisticPoitement> statisticPoitements { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await Security.InitializeAsync(AuthenticationStateProvider);
+        if (Security.IsAuthenticated())
+        {
+            List<StatisticPoitement> statistics = await generalService.StatisticPoitements(Convert.ToInt32(Id));
+            statisticPoitements = new List<StatisticPoitement> { };
+            for (int i = 0; i <= 11; i++)
+            {
+                if (statistics.Count>i)
+                {
+                    var fVisits = statistics[i];
+                    statisticPoitements.Add(new StatisticPoitement
+                    {
+                        Months = i,
+                        NbVisits = statistics[i].NbVisits
+                    });
+                }
+                else
+                {
+                    statisticPoitements.Add(new StatisticPoitement
+                    {
+                        Months = i,
+                        NbVisits = 0
+                    });
+                }
+            }
+        }else
+        {
+            Navigation.NavigateTo("/login", true);        }
+
+    }
+
+}
