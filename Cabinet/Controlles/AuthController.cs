@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -16,6 +16,8 @@ using Cabinet.Pages.Doctors;
 using System.Security.Cryptography.Xml;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.Transactions;
+using Microsoft.AspNetCore.Components.Forms;
+using Cabinet.Pages;
 
 namespace Cabinet.Controlles
 {
@@ -59,9 +61,6 @@ namespace Cabinet.Controlles
         [HttpPost]
         public async Task<IActionResult> Login(string userName, string password, string redirectUrl)
         {
-
-
-
             if (env.EnvironmentName == "Development" && userName == "admin" && password == "admin")
             {
                 var claims = new List<Claim>()
@@ -112,10 +111,10 @@ namespace Cabinet.Controlles
         [AllowAnonymous]
         public async Task<IActionResult> Register(string fullname, string email, string specalite, string phone, string cin, string photo, string password )
         {
-
+            
             //using(var scope = new TransactionScope())
             //{
-                var user = new User { UserName = email, Email = email };
+                var user = new User { UserName = email, Email = email, Photo = photo };
                 
                 var resultUser = await userManager.CreateAsync(user, password);
                 var _user = await userManager.FindByNameAsync(user.Email);

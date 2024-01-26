@@ -8,14 +8,18 @@
 <RadzenContent Container="main">
     <ChildContent>
         <div class="chats">
+            
+
+            <hr />
             <RadzenChart Visible="true">
              
-                <RadzenColumnSeries Data="@statisticPoitements" CategoryProperty="Months"  LineType="LineType.Dashed" Title="Nombre de Visites" ValueProperty="NbVisits" Stroke="red" StrokeWidth="10" >
+                <RadzenColumnSeries Data="@statisticPoitements" CategoryProperty="Months"  Title="Nombre de Visites" ValueProperty="NbVisits" Stroke="white" StrokeWidth="10" >
                 </RadzenColumnSeries>
-                <RadzenCategoryAxis Padding="20" />
-                <RadzenValueAxis >
-                    <RadzenGridLines Visible="true" />
+                <RadzenCategoryAxis Min="1" Step="1" >
                     <RadzenAxisTitle Text="Les Mois" />
+                </RadzenCategoryAxis>
+                <RadzenValueAxis Step="1" >
+                    <RadzenGridLines Visible="true" />
                 </RadzenValueAxis>
             </RadzenChart>
             
@@ -27,34 +31,44 @@
 @code{
     [Parameter] public dynamic Id { get; set; }
     public IList<StatisticPoitement> statisticPoitements { get; set; }
+
+    class DataItem
+    {
+        public int Month{ get; set; }
+        public double Revenue { get; set; }
+    }
+
+    
+
     
     protected override async Task OnInitializedAsync()
     {
         await Security.InitializeAsync(AuthenticationStateProvider);
         if (Security.IsAuthenticated())
         {
-            List<StatisticPoitement> statistics = await generalService.StatisticPoitements(Convert.ToInt32(Id));
             statisticPoitements = new List<StatisticPoitement> { };
-            for (int i = 0; i <= 11; i++)
-            {
-                if (statistics.Count>i)
-                {
-                    var fVisits = statistics[i];
-                    statisticPoitements.Add(new StatisticPoitement
-                    {
-                        Months = i,
-                        NbVisits = statistics[i].NbVisits
-                    });
-                }
-                else
-                {
-                    statisticPoitements.Add(new StatisticPoitement
-                    {
-                        Months = i,
-                        NbVisits = 0
-                    });
-                }
-            }
+            statisticPoitements = await generalService.StatisticPoitements(Convert.ToInt32(Id));
+            
+            // for (int i = 0; i <= 11; i++)
+            // {
+            //     if (statistics.Count>i)
+            //     {
+            //         var fVisits = statistics[i];
+            //         statisticPoitements.Add(new StatisticPoitement
+            //         {
+            //             Months = i,
+            //             NbVisits = statistics[i].NbVisits
+            //         });
+            //     }
+                // else
+                // {
+                //     statisticPoitements.Add(new StatisticPoitement
+                //     {
+                //         Months = i,
+                //         NbVisits = 0
+                //     });
+                // }
+            //}
         }else
         {
             Navigation.NavigateTo("/login", true);        }

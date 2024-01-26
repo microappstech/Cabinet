@@ -25,7 +25,7 @@
     <ChildContent>
         <div class="row mx-auto  mb-5" style="justify-content:center">
             <div class="col-5" style="padding:0">
-                <img src="/images/doctor.png" height="100%" />
+                <img src="/images/doctor2.png" height="100%" />
             </div>
             <div class="col-5" style="background-color:#0099cb; padding:30px;">
                 <p style="text-align:center; color:white; color:white; background-color:#eb7143;">Ce inscription seuement pour les Medcins</p>
@@ -33,24 +33,24 @@
                 <form method="post" action="Auth/Register" enctype="multipart/form-data">
 
                     <div class="form-group text-white mb-5">
-                        <RadzenTextBox name="fullname" type="text" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Votre Nom ..."/>
+                        <RadzenTextBox name="fullname" type="text" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Nom"/>
                         <RadzenRequiredValidator Component="fullname" Text="le nom est requis"></RadzenRequiredValidator>
                     </div>
 
                     <div class="form-group text-white mb-5">
-                        <RadzenTextBox name="email" AutoComplete="false" type="email" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Enter email"/>
+                        <RadzenTextBox name="email" AutoComplete="false" type="email" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Email"/>
                         <RadzenRequiredValidator Component="email" Text="l' email est requis"></RadzenRequiredValidator>
                     </div>
 
                     <div class="form-group text-white mb-5">
-                        <RadzenTextBox name="specalite" type="text" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Votre Specialite"/>
+                        <RadzenTextBox name="specalite" type="text" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Spécialité"/>
                         <RadzenRequiredValidator Component="specalite" Text="la spécialité est requise"></RadzenRequiredValidator>
                     </div>
 
 
                     <div class="form-group text-white mb-5">
                         @* <input name="phone" type="tel" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Votre Telephone"> *@
-                        <RadzenTextBox Name="phone" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Votre Telephone"></RadzenTextBox>
+                        <RadzenTextBox Name="phone" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="Téléphone"></RadzenTextBox>
                         <RadzenLengthValidator Component="phone" Max="13" Min="10" Text="Merci de sisair un nombre de telephone correct"></RadzenLengthValidator>
                     </div>
 
@@ -63,13 +63,14 @@
                         <RadzenRequiredValidator Text="le mot de passe est requis" Component="password"></RadzenRequiredValidator>
                     </div>
                     <div class="form-group text-white mb-3">
-                        <input name="photo" type="file" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" />
+                        <RadzenTextBox Name="photo" @bind-Value="photo" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0; display:none" class="form-control"  />
+                        <InputFile  OnChange="UploadImage" />
                     </div>
 
                     <div class="form-group text-white ">
 
                         <RadzenCheckBox Checked ="ImDoctor" TValue="bool" Change="@(()=>{ImDoctor=!ImDoctor;})" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control px-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CIN ou Passport" Name="ImDoctor"></RadzenCheckBox>
-                        <RadzenRequiredValidator Component="ImDoctor" Text="vous devez etre un medcine pour créer un compte"></RadzenRequiredValidator>
+                        <RadzenRequiredValidator Component="ImDoctor" Text="Je Confirme que je suis médecin"></RadzenRequiredValidator>
                         <RadzenLabel Component="ImDoctor">I accpt that i'm a doctor</RadzenLabel>
                     </div>
                     <button class="btn btn-primary px-5" disabled="@(!ImDoctor)" style="background-color:#eb7143">Register</button>
@@ -82,5 +83,19 @@
 
 
 @code{
-    public bool ImDoctor; 
+    public bool ImDoctor { get; set; }
+    public string photo { get; set; } = string.Empty;
+
+    public async Task UploadImage(InputFileChangeEventArgs file)
+    {
+        using(var stream = file.File.OpenReadStream())
+        using(var Str = new MemoryStream())
+        {
+            await stream.CopyToAsync(Str);
+            byte[] Bytes = Str.ToArray();
+            photo = "data:image/png;base64," + Convert.ToBase64String(Bytes).ToString();
+             
+        }
+
+    }
 }

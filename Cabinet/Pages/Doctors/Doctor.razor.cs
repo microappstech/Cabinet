@@ -63,7 +63,7 @@ namespace Cabinet.Pages.Doctors
                     {
                         Notify(Radzen.NotificationSeverity.Error, "Echèc", "Suppression terminé avec erreurs");
                     }
-                    await grid0.Reload();
+                    await Load();
                 }
                 catch (Exception ex)
                 {
