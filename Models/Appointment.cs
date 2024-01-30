@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Cabinet.Models;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 
 namespace Cabinet.Models
 {

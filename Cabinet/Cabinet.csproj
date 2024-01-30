@@ -19,7 +19,15 @@
 
 
   <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Pages\Shared\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
 </Project>
