@@ -1,7 +1,7 @@
 ﻿@page "/login"
 @layout Cabinet.Shared.LoginLayout
 @using Radzen;
-
+@inherits LoginComponent;
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L;
 
 <PageTitle>Login</PageTitle>
@@ -28,7 +28,6 @@
                     </div>
                     <div class="form-group">
                         <RadzenLabel Text="@L["Mot de passe"]" for="Password" class="mb-2 text-white" />
-                        @*<RadzenPassword Name="Password" class="form-control" />*@
                         <div class="position-relative">
                             @if (!string.IsNullOrWhiteSpace(password))
                             {
@@ -45,6 +44,7 @@
                             }
                         </div>
                     </div>
+                    <div class="text-danger">@error</div>
                     <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary" Style="width: 100%" class="mt-3">
                         @L["Login"]
                     </RadzenButton>
@@ -61,13 +61,3 @@
 
     </ChildContent>
 </RadzenContent>
-@code {
-    private string password { get; set; }
-    public string redirectUrl { get; set; }
-    protected bool ShowPassword = false;
-
-    protected void handleShowPassword()
-    {
-        ShowPassword = !ShowPassword;
-    }
-}

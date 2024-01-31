@@ -4,6 +4,7 @@ using MailKit;
 using MimeKit;
 using Cabinet.Models;
 using System.Net;
+using Microsoft.Extensions.Configuration;
 
 
 namespace Cabinet.Service

@@ -1,6 +1,5 @@
 ﻿using Cabinet.Data;
 using Cabinet.Models;
-using Cabinet.Pages;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +7,7 @@ namespace Cabinet.Service
 {
     public class GeneralService : BaseService
     {
-        public GeneralService(CabinetContext context, NavigationManager navigationManager, IConfiguration configuration, NavigationManager navigation) : base(context, navigationManager, configuration, navigation)
+        public GeneralService(CabinetContext context, NavigationManager navigationManager, Microsoft.Extensions.Configuration.IConfiguration configuration, NavigationManager navigation) : base(context, navigationManager, configuration, navigation)
         {
         }
 

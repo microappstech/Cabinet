@@ -8,16 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Security.Cryptography;
 using Cabinet.Models;
 using Cabinet.Service;
-using Cabinet.Pages.Doctors;
-using System.Security.Cryptography.Xml;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System.Transactions;
-using Microsoft.AspNetCore.Components.Forms;
-using Cabinet.Pages;
 
 namespace Cabinet.Controlles
 {

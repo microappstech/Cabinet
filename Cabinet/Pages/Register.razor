@@ -30,6 +30,7 @@
             <div class="col-5" style="background-color:#0099cb; padding:30px;">
                 <p style="text-align:center; color:white; color:white; background-color:#eb7143;">Ce inscription seuement pour les Medcins</p>
                 <h1 style="text-align:center; color:white;font-weight:100">CREATE COMPTE</h1>
+                <div class="text-danger">@error</div>
                 <form method="post" action="Auth/Register" enctype="multipart/form-data">
 
                     <div class="form-group text-white mb-5">
@@ -79,23 +80,3 @@
         </div>
     </ChildContent>
 </RadzenContent>
-
-
-
-@code{
-    public bool ImDoctor { get; set; }
-    public string photo { get; set; } = string.Empty;
-
-    public async Task UploadImage(InputFileChangeEventArgs file)
-    {
-        using(var stream = file.File.OpenReadStream())
-        using(var Str = new MemoryStream())
-        {
-            await stream.CopyToAsync(Str);
-            byte[] Bytes = Str.ToArray();
-            photo = "data:image/png;base64," + Convert.ToBase64String(Bytes).ToString();
-             
-        }
-
-    }
-}
