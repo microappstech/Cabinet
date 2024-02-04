@@ -1,7 +1,6 @@
 ﻿using Cabinet.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Cabinet.Service
 {
