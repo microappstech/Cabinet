@@ -18,6 +18,7 @@ using Radzen;
 using Cabinet.Pages.Assisstant;
 using Cabinet.Pages.Doctors;
 using Cabinet.Service;
+using Cabinet.Pages.Patients;
 
 namespace Cabinet.Pages.Appointements
 {
@@ -47,12 +48,12 @@ namespace Cabinet.Pages.Appointements
 
         public async Task Ajouter()
         {
-            var result = await DialogService.OpenAsync<AddAppointement>("Ajouter un Rendez-vous", new Dictionary<string, object> { });
+            var result = await DialogService.OpenAsync<AddApp>("Ajouter un Rendez-vous", new Dictionary<string, object> { });
             await Load();
         }
         public async Task Edit(Models.Appointment appointment)
         {
-            var result = await DialogService.OpenAsync<EditAppointement>("Editer un rendez-vous", new Dictionary<string, object> { { "Id", appointment.Id } });
+            var result = await DialogService.OpenAsync<EditApp>("Editer un rendez-vous", new Dictionary<string, object> { { "Id", appointment.Id } });
             await Load();
         }
         public async Task Delete(EventArgs eventArgs, Models.Appointment appointment)

@@ -1,0 +1,131 @@
+﻿@inherits BasePage
+
+@using Radzen;
+@using Cabinet.Service;
+@using Cabinet.Models;
+@inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+
+
+<RadzenContent Container="main">
+    <ChildContent>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenTemplateForm Data="@appointment" Visible="@(appointment != null)" TItem="Models.Appointment" Submit="@Submit">
+                    <ChildContent>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Specialité"]" Component="nom" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenDropDown Data="@patients" TextProperty="FullName" ValueProperty="Id" Placeholder="@L["Choisir un patient"]" ShowSearch="false" style="display: block; width: 100%" @bind-Value="@(appointment.PatientId)" Name="PatientId">
+                                </RadzenDropDown>
+                                <RadzenRequiredValidator Component="PatientId" Text="@L["Le client est requise"]" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Date de création"]" Component="phone" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenDatePicker @bind-Value=@appointment.DateAppointement Min="DateTime.Now" Name="RadzenDatePickerBindValue" ShowTime="true" DateFormat="MM/dd/yyyy HH:mm" HourFormat="24" AllowClear="true" AllowInput="true" />
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Confimé"]" Component="Passed" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenCheckBox @bind-Value="appointment.Passed" Name="Passed"></RadzenCheckBox>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="@L["Annulé"]" Component="Canceled" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenCheckBox @bind-Value="appointment.Annuled" Name="Canceled"></RadzenCheckBox>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col offset-sm-3">
+                                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" class="px-5 py-1" Text="@L["Submit"]" ButtonStyle="ButtonStyle.Primary">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" class="py-1 px-5" style="margin-left: 1rem" Text="@L["Annuler"]" Click="@(()=>DialogService.Close())">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </ChildContent>
+                </RadzenTemplateForm>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
+
+@code{
+    [Parameter] public int Id { get; set; }
+
+    public Models.Appointment appointment { get; set; }
+    public IEnumerable<Patient> patients { get; set; }
+    public IEnumerable<Doctor> doctors { get; set; }
+    [Inject] public AppointmentService appointmentService { get; set; }
+    [Inject] public PatientService patientService { get; set; }
+    [Inject] public DoctorService doctorService { get; set; }
+
+    public int fileSize { get; set; }
+    public string ErrorMsg { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await Security.InitializeAsync(AuthenticationStateProvider);
+        if (!Security.IsAuthenticated())
+        {
+            Navigation.NavigateTo("login", true);
+        }
+        else
+        {
+            await Load();
+        }
+    }
+    protected async Task Load()
+    {
+        appointment = await appointmentService.GetById(Convert.ToInt32(Id));
+        patients = await patientService.GetAll();
+        doctors = await doctorService.GetDoctors();
+    }
+
+    public async Task Submit(Models.Appointment appointment)
+    {
+        try
+        {
+            var result = await appointmentService.UpdateItem(appointment);
+            if (result)
+            {
+                Notify(NotificationSeverity.Success, "Edition terminé avec succès", "Succès");
+                DialogService.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Notify(NotificationSeverity.Error, "Echec ", "quelque chose n'est pas correct");
+        }
+    }
+
+    public void OnChange(string value, string name)
+    {
+
+    }
+    public void OnError(UploadErrorEventArgs args, string name)
+    {
+        if (args.Message.ToLower().Contains("too large"))
+        {
+            ErrorMsg = "la taille d'image dépasse la taille autorisé";
+        }
+
+    }
+}

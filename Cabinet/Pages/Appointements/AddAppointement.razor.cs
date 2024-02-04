@@ -20,7 +20,7 @@ using Cabinet.Models;
 
 namespace Cabinet.Pages.Appointements
 {
-    public partial class AddAppointementComponent:BasePage
+    public partial class AddAppointementComponent : BasePage
     {
         public Models.Appointment appointment { get; set; }
         public IEnumerable<Patient> patients { get; set; }
@@ -45,9 +45,9 @@ namespace Cabinet.Pages.Appointements
         }
         protected async Task Load()
         {
-            appointment = new Models.Appointment() { };
             patients = await patientService.GetAll();
             doctors = await doctorService.GetDoctors();
+            appointment = new Models.Appointment() { };
         }
 
         public async Task Submit(Models.Appointment appointment)

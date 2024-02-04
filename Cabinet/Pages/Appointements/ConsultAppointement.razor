@@ -12,7 +12,7 @@
         <div class="row">
             
 
-            <RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Cabinet.Models.Appointment" Data=@appointments StartProperty="Start" EndProperty="End" 
+            <RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Cabinet.Models.Appointment" Data=@appointments StartProperty="DateAppointement" EndProperty="End"
                              TextProperty="Patient.FullName" SelectedIndex="1" 
                              SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender>
                 <RadzenDayView />
@@ -20,12 +20,10 @@
                 <RadzenMonthView />
                 <RadzenYearView />
             </RadzenScheduler>
-
-
-           
         </div>
-    
-
     </ChildContent>
 </RadzenContent>
+
+@code {
+}
 

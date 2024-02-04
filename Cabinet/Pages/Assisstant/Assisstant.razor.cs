@@ -15,7 +15,8 @@ using Cabinet;
 using Cabinet.Shared;
 using Radzen.Blazor;
 using Cabinet.Service;
-using Cabinet.Pages.Doctors;
+using Cabinet.Pages.Assisstant;
+
 
 namespace Cabinet.Pages.Assisstant
 {
@@ -45,12 +46,12 @@ namespace Cabinet.Pages.Assisstant
 
         public async Task Ajouter()
         {
-            var result = await DialogService.OpenAsync<AddAssisstant>("Ajouter une assistant", new Dictionary<string, object> { });
+            var result = await DialogService.OpenAsync<AddAssisstant>("Ajouter une assistante", new Dictionary<string, object> { });
             await grid0.Reload();
         }
         public async Task Edit(Models.Assisstant assisstant)
         {
-            var result = await DialogService.OpenAsync<EditDoctor>("Edit Doctor", new Dictionary<string, object> { { "Id", assisstant.Id } });
+            var result = await DialogService.OpenAsync<EditAssisstant>("Edit une assisstante", new Dictionary<string, object> { { "Id", assisstant.Id } });
             await grid0.Reload();
         }
         public async Task Delete(EventArgs eventArgs, Models.Assisstant assisstant)

@@ -10,7 +10,7 @@ namespace Cabinet.Pages.Appointements
     {
         public RadzenScheduler<Cabinet.Models.Appointment> scheduler;
         public Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
-        public IList<Cabinet.Models.Appointment> appointments { get; set; }
+        public List<Cabinet.Models.Appointment> appointments { get; set; }
         [Inject] AppointmentService appointmentService { get; set; }
 
 
@@ -48,35 +48,15 @@ namespace Cabinet.Pages.Appointements
 
         public async Task OnSlotSelect(SchedulerSlotSelectEventArgs args)
         {
-            if (args.View.Text != "Year")
-            {
-                Cabinet.Models.Appointment data = await DialogService.OpenAsync<AddAppointement>("Add Appointment", new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
-                if (data != null)
-                {
-                    // Either call the Reload method or reassign the Data property of the Scheduler
-                    await scheduler.Reload();
-                }
-            }
+            
         }
 
         public async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<Cabinet.Models.Appointment> args)
         {
-            var copy = new Cabinet.Models.Appointment
-            {
-                Start = args.Data.Start,
-                End = args.Data.End,
-                Visit = args.Data.Visit
-            };
-            var data = await DialogService.OpenAsync<EditAppointement>("Edit Appointment", new Dictionary<string, object> { { "Id", args.Data.Id} });
-            if (data != null)
-            {
-                // Update the appointment
-                args.Data.Start = data.Start;
-                args.Data.End = data.End;
-                args.Data.Visit = data.Visit;
-            }
-
-            await scheduler.Reload();
+            
+            
+            
+            
         }
 
         public void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<Cabinet.Models.Appointment> args)

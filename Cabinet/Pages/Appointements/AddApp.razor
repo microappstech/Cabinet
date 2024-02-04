@@ -1,26 +1,16 @@
-﻿@page "/Addapointement"
-@inherits AddAppointementComponent
+﻿@inherits BasePage
 @using Radzen
+@using Cabinet.Service;
+@using Cabinet.Models;
 @inject Microsoft.Extensions.Localization.IStringLocalizer<BasePage> L
+
 
 <RadzenContent Container="main">
     <ChildContent>
         <div class="row">
             <div class="col-md-12">
-                <RadzenTemplateForm Data="@appointment" TItem="Models.Appointment" Submit="@Submit">
+                <RadzenTemplateForm Visible=@(appointment is not null) Data="@appointment" TItem="Models.Appointment" Submit="@Submit">
                     <ChildContent>
-                        @* <div style="margin-bottom: 1rem" class="row">
-                            <div class="col-md-3">
-                                <RadzenLabel Text="@L["Nom de doctor"]" Component="nom" style="width: 100%">
-                                </RadzenLabel>
-                            </div>
-                            <div class="col-md-9">
-                                <RadzenDropDown Data="@doctors" TextProperty="FullName" ValueProperty="Id" Placeholder="@L["Choisir un médcine"]" ShowSearch="false" style="display: block; width: 100%" @bind-Value="@(appointment.DoctorId)" Name="DoctorId">
-                                </RadzenDropDown>
-                                <RadzenRequiredValidator Component="DoctorId" Text="@L["Choisir un médcine"]" style="position: absolute" DefaultValue="0">
-                                </RadzenRequiredValidator>
-                            </div>
-                        </div> *@
                         <div style="margin-bottom: 1rem" class="row">
                             <div class="col-md-3">
                                 <RadzenLabel Text="@L["Patient"]" Component="nom" style="width: 100%">
@@ -70,3 +60,65 @@
     </ChildContent>
 </RadzenContent>
 
+@code{
+    public Models.Appointment appointment { get; set; }
+    public IEnumerable<Patient> patients { get; set; }
+    public IEnumerable<Doctor> doctors { get; set; }
+    [Inject] public AppointmentService appointmentService { get; set; }
+    [Inject] public PatientService patientService { get; set; }
+    [Inject] public DoctorService doctorService { get; set; }
+
+    public int fileSize { get; set; }
+    public string ErrorMsg { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await Security.InitializeAsync(AuthenticationStateProvider);
+        if (!Security.IsAuthenticated())
+        {
+            Navigation.NavigateTo("login", true);
+        }
+        else
+        {
+            await Load();
+        }
+    }
+    protected async Task Load()
+    {
+        patients = await patientService.GetAll();
+        doctors = await doctorService.GetDoctors();
+        appointment = new Models.Appointment() { };
+    }
+
+    public async Task Submit(Models.Appointment appointment)
+    {
+        try
+        {
+            appointment.DateCreated = DateTime.Now;
+            appointment.Passed = false;
+            appointment.Annuled = false;
+            var result = await appointmentService.CreateItem(appointment);
+            if (result)
+            {
+                Notify(NotificationSeverity.Success, "Création terminé avec succès", "Succès");
+                DialogService.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            Notify(NotificationSeverity.Error, "Echec ", "quelque chose n'est pas correct");
+        }
+    }
+
+    public void OnChange(string value, string name)
+    {
+
+    }
+    public void OnError(UploadErrorEventArgs args, string name)
+    {
+        if (args.Message.ToLower().Contains("too large"))
+        {
+            ErrorMsg = "la taille d'image dépasse la taille autorisé";
+        }
+
+    }
+}
