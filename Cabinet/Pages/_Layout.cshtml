@@ -14,13 +14,17 @@
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
     @* <link rel="stylesheet" href="_content/Radzen.Blazor/css/material-base.css"> *@
     <link rel="stylesheet" href="_content/Radzen.Blazor/css/Standard-base.css">
-    
+    <style>
+        #blazor-error-ui{
+            display:hidden;
+        }
+    </style>
 
 </head>
 <body>
     @RenderBody()
 
-    <div id="blazor-error-ui">
+    <div id="blazor-error-ui" class="d-none">
         <environment include="Staging,Production">
             An error has occurred. This application may no longer respond until reloaded.
         </environment>

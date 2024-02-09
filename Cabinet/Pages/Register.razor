@@ -28,8 +28,8 @@
                 <img src="/images/doctor2.png" height="100%" />
             </div>
             <div class="col-5" style="background-color:#0099cb; padding:30px;">
-                <p style="text-align:center; color:white; color:white; background-color:#eb7143;">Ce inscription seuement pour les Medcins</p>
-                <h1 style="text-align:center; color:white;font-weight:100">CREATE COMPTE</h1>
+                <p style="text-align:center; color:white; color:white; background-color:#eb7143;">Ce inscription seulement pour les Médecins</p>
+                <h1 style="text-align:center; color:white;font-weight:100">Créer votre compte</h1>
                 <form method="post" action="Auth/Register" enctype="multipart/form-data">
 
                     <div class="form-group text-white mb-5">
@@ -58,8 +58,24 @@
                         <RadzenTextBox name="cin" type="text" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="CIN ou Passport" />
                         
                     </div>
+                    <div class="position-relative">
+                        @if (!string.IsNullOrWhiteSpace(password))
+                        {
+                            <RadzenIcon Icon="@(ShowPassword ? "visibility_off" : "visibility")" Style="position:absolute;right:5px;cursor:pointer;z-index:20;top:5px" onclick="@(() => handleShowPassword())" />
+                        }
+
+                        @if (ShowPassword)
+                        {
+                            <RadzenTextBox @bind-Value="@password" name="password" AutoComplete="false"  style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="**********" />
+                        }
+                        else
+                        {
+                            <RadzenPassword @bind-Value="@password" name="password" AutoComplete="false"  style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="**********" />
+                        }
+                    </div>
                     <div class="form-group text-white mb-5">
-                        <RadzenPassword name="password" AutoComplete="false" type="password" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="**********"/>
+                        @* <RadzenPassword name="password" AutoComplete="false" type="password" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control" placeholder="**********"/> *@
+                        
                         <RadzenRequiredValidator Text="le mot de passe est requis" Component="password"></RadzenRequiredValidator>
                     </div>
                     <div class="form-group text-white mb-3">
@@ -71,9 +87,9 @@
 
                         <RadzenCheckBox Checked ="ImDoctor" TValue="bool" Change="@(()=>{ImDoctor=!ImDoctor;})" style="background-color:transparent; border-top:none; border-left:none;border-right:none; color:white; border-radius:0" class="form-control px-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CIN ou Passport" Name="ImDoctor"></RadzenCheckBox>
                         <RadzenRequiredValidator Component="ImDoctor" Text="Je Confirme que je suis médecin"></RadzenRequiredValidator>
-                        <RadzenLabel Component="ImDoctor">I accpt that i'm a doctor</RadzenLabel>
+                        <RadzenLabel Component="ImDoctor">Je confirme que je suis médecin</RadzenLabel>
                     </div>
-                    <button class="btn btn-primary px-5" disabled="@(!ImDoctor)" style="background-color:#eb7143">Register</button>
+                    <button class="btn btn-primary px-5" disabled="@(!ImDoctor)" style="background-color:#eb7143">Valider</button>
                 </form>
             </div>
         </div>
@@ -98,4 +114,13 @@
         }
 
     }
-}
+    
+    private string password { get; set; }
+    public string redirectUrl { get; set; }
+    protected bool ShowPassword = false;
+
+    protected void handleShowPassword()
+    {
+        ShowPassword = !ShowPassword;
+    }
+    }

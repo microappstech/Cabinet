@@ -56,9 +56,9 @@
                             <ChildContent >
 
                                 <RadzenPanelMenuItem Text="@L["tableau de bord"]" Path="dashboard" Visible="true"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Consulteur les Rendez Vous"]" Path="SeeAppo" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Consulter les Rendez Vous"]" Path="SeeAppo" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Doctors"]" Path="doctors" Visible="@Security.IsInRole(new string[]{"ADMIN"} )"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Nurses"]" Path="infirmiers" Visible="@( Security.IsInRole(new string[]{"ADMIN","DOCTOR"} ))"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Infirmièrs"]" Path="infirmiers" Visible="@( Security.IsInRole(new string[]{"ADMIN","DOCTOR"} ))"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Roles"]" Path="roles" Visible="@(false && Security.IsInRole(new string[]{"ADMIN","DOCTOR"} ))"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Assistants"]" Path="Assisstants" Visible="@Security.IsInRole(new string[]{"ADMIN","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Utilisateurs"]" Path="Utilisateurs" Visible="@Security.IsInRole(new string[]{"ADMIN"} )"></RadzenPanelMenuItem>
@@ -73,10 +73,9 @@
                 <RadzenFooter>
                     <ChildContent>
 
-                        <RadzenLabel Text="@L["footerText.Text"]">
+                        <RadzenLabel Text="@L[""]">
 
-                        </RadzenLabel>   &nbsp  &nbsp  <NavLink href="/politique-de-confidentialite/web">@L["Politique de confidentialité"]</NavLink>
-                        &nbsp  &nbsp  <NavLink href="/mentions-legales">@L["Mentions légales"]</NavLink>
+                        </RadzenLabel>   &nbsp  &nbsp  <NavLink href="/">@L["Sante click"]</NavLink>
 
                     </ChildContent>
                 </RadzenFooter>
