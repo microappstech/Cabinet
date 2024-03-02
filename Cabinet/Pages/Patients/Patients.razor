@@ -6,7 +6,7 @@
 @attribute [Authorize(Roles = "ADMIN,DOCTOR,ASSISSTANT,INFIRMIER")]
 <RadzenContent Container="main">
     <ChildContent>
-        <RadzenHeading Size="H1" Text="@L["Clients"]">
+        <RadzenHeading Size="H1" Text="@L["Les Patients"]">
         </RadzenHeading>
         <div class="row">
             <div class="col-md-12">
@@ -31,7 +31,7 @@
                                 @ConPat?.Appointments.OrderByDescending(i=>i.DateAppointement).FirstOrDefault()?.DateAppointement
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="PhoneNumber" Title="@L["PhoneNumber"]"></RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="PhoneNumber" Title="@L["Téléphone"]"></RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Cabinet.Models.Patient" Property="NbVisits" Title="@L["Nombre de visite"]">
                                 <Template Context="Pat">
                                     @Pat?.Appointments?.Count

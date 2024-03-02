@@ -48,7 +48,7 @@ namespace Cabinet.Pages.Patients
         }
         public async Task Edit(Models.Patient patient)
         {
-            var result = await DialogService.OpenAsync<EditPatient>("Edit le client", new Dictionary<string, object> { { "Id", patient.Id } });
+            var result = await DialogService.OpenAsync<EditPatient>("Edit patient", new Dictionary<string, object> { { "Id", patient.Id } });
         }
         public async Task Detail(Models.Patient patient)
         {
