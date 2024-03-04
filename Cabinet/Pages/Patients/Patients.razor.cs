@@ -44,7 +44,7 @@ namespace Cabinet.Pages.Patients
         }
         public async Task Ajouter()
         {
-            var result = await DialogService.OpenAsync<AddPatient>("Ajouter Client", new Dictionary<string, object> { });
+            var result = await DialogService.OpenAsync<AddPatient>("Ajouter Patient", new Dictionary<string, object> { });
         }
         public async Task Edit(Models.Patient patient)
         {
@@ -56,7 +56,7 @@ namespace Cabinet.Pages.Patients
         }        
         public async Task Delete(EventArgs eventArgs, Models.Patient patient)
         {
-            if(await Confirm("Confirmation de suppression","Etes vous sure de vouloir supprimer ce client") == true)
+            if(await Confirm("Confirmation de suppression","Etes vous sure de vouloir supprimer cette patient") == true)
             {
                 try
                 {

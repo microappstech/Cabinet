@@ -17,7 +17,7 @@
                             <div class="col-md-9">
                                 <RadzenDropDown Data="@patients" TextProperty="FullName" ValueProperty="Id" Placeholder="@L["Choisir un patient"]" ShowSearch="false" style="display: block; width: 100%" @bind-Value="@(appointment.PatientId)" Name="PatientId">
                                 </RadzenDropDown>
-                                <RadzenRequiredValidator Component="PatientId" Text="@L["Le client est requise"]" style="position: absolute">
+                                <RadzenRequiredValidator Component="PatientId" Text="@L["Patient est requis"]" style="position: absolute">
                                 </RadzenRequiredValidator>
                             </div>
                         </div>

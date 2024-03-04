@@ -56,7 +56,7 @@
                             <ChildContent >
 
                                 <RadzenPanelMenuItem Text="@L["tableau de bord"]" Path="dashboard" Visible="true"></RadzenPanelMenuItem>
-                                <RadzenPanelMenuItem Text="@L["Consulter des endez vous"]" Path="SeeAppo" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Text="@L["Consulter des rendez vous"]" Path="SeeAppo" Visible="@Security.IsInRole(new string[]{"ADMIN","ASSISSTANT","INFIRMIER","DOCTOR"} )"></RadzenPanelMenuItem>
                                 
                                 <RadzenPanelMenuItem Text="@L["Infirmièrs"]" Path="infirmiers" Visible="@( Security.IsInRole(new string[]{"ADMIN","DOCTOR"} ))"></RadzenPanelMenuItem>
                                 <RadzenPanelMenuItem Text="@L["Roles"]" Path="roles" Visible="@(false && Security.IsInRole(new string[]{"ADMIN","DOCTOR"} ))"></RadzenPanelMenuItem>
@@ -74,7 +74,7 @@
 
                         <RadzenLabel Text="@L[""]">
 
-                        </RadzenLabel>   &nbsp  &nbsp  <NavLink href="/">@L["Sante click"]</NavLink>
+                        </RadzenLabel>   &nbsp  &nbsp  <NavLink href="/">@L["Santé clic"]</NavLink>
 
                     </ChildContent>
                 </RadzenFooter>
